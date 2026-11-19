@@ -1,0 +1,19 @@
+/* curriculum-2027 :: review page (loaded by review.html only) */
+
+.doc button {
+  font: inherit; font-size: .85em; color: var(--green); background: transparent;
+  border: 1px solid var(--green-2); padding: .3em .8em; margin: 0 .4em .5em 0; cursor: pointer;
+}
+.doc button:hover, .doc button:focus-visible { color: #000; background: var(--green); outline: none; }
+.doc kbd { font: inherit; font-size: .8em; color: var(--fg-dim); border: 1px solid var(--line-2); padding: 0 .3em; margin-left: .3em; }
+.doc button:hover kbd { color: #000; border-color: #000; }
+.srs__card { border: 1px solid var(--line-2); border-left: 3px solid var(--amber); background: var(--bg-2); padding: 16px 18px; margin: 1em 0 1.5em; }
+.srs__meta { font-size: .8em; color: var(--fg-dim); display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.srs__q { color: #fff; font-size: 1.08em; margin: .8em 0; }
+.srs__a { color: var(--green); border-top: 1px dashed var(--line-2); padding-top: .8em; margin-bottom: .8em; }
+.srs__actions { margin: .6em 0 0; }
+.srs__empty { color: var(--amber); margin: 1em 0 1.5em; }
+.srs__settings label { margin-right: 1.2em; white-space: nowrap; cursor: pointer; }
+.srs__settings input[type="checkbox"] { margin: 0 .35em 0 0; }
+.srs__settings input[type="radio"] { accent-color: var(--green); }
+.srs__num { width: 5em; font: inherit; color: var(--fg); background: var(--bg-3); border: 1px solid var(--line-2); padding: .1em .4em; }

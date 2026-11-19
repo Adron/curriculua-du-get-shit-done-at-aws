@@ -1,0 +1,6 @@
+---
+layout: null
+permalink: /decks/aif-c01.csv
+---
+{% for c in site.data.cards.aif %}"{{ c.q | replace: '"', '""' }}","{{ c.a | replace: '"', '""' }}","aif-c01 {{ c.topic | slice: 0, 2 | prepend: 'topic-' }}"
+{% endfor %}

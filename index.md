@@ -72,6 +72,10 @@ The loop I run for each cert:
 
 Reading about RAG doesn't make you good at RAG. So I'm building one thing across all three certs: **[Ask Composite Code](build.md)**, a RAG assistant and eventually an agent over 15+ years of my own blog posts. It starts as a Knowledge Base in the console for AIF and ends as a production API with an agent, guardrails, evals, and CI/CD for AIP. Twelve milestones, B1 through B12, each wired to the topics it exercises.
 
+## Keeping it
+
+Passing is one thing. Still knowing it six months later, when MLA assumes everything from AIF, is another. The [retention toolkit](retention.html) is for that: daily [spaced-repetition review](review.html) over every topic note, with a keep-warm mode for certs I've already passed, plus the other tools that hold onto judgment, not just facts.
+
 ## Habits that apply across the board
 
 - **Official sources first.** Exam guides, Skill Builder prep plans, official practice exams. Third-party dumps are a liability, not a shortcut.

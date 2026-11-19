@@ -1,0 +1,26 @@
+---
+title: "Retention toolkit"
+---
+<h1>Retention toolkit</h1>
+
+<p>The topic notes and workbooks are for <em>learning</em> this stuff. Everything here is for <em>keeping</em> it: through all three exams, and for the three years each cert lasts. Pick the right tool for the job: flashcards for facts, the ladder for connections, drills and the miss log for judgment, and write-ups for the things I only think I understand.</p>
+
+{% assign tools = site.pages | where: "retention", true | sort: "retention_order" %}
+<table>
+  <thead><tr><th>Tool</th><th>What it's for</th></tr></thead>
+  <tbody>
+  {% for t in tools %}
+    <tr><td><a href="{{ t.url | relative_url }}">{{ t.title }}</a></td><td>{{ t.retention_blurb }}</td></tr>
+  {% endfor %}
+  </tbody>
+</table>
+
+<h2>The weekly rhythm</h2>
+<ul>
+  <li><strong>Daily, 10 minutes:</strong> <a href="{{ '/review.html' | relative_url }}">review</a> whatever's due.</li>
+  <li><strong>After every practice session:</strong> log the misses, with the <em>why</em>.</li>
+  <li><strong>Weekly:</strong> one mixed drill, redo the misses that are due, and read the patterns.</li>
+  <li><strong>Before starting each new cert:</strong> walk its rows on the concept ladder, bottom up.</li>
+  <li><strong>After each build milestone:</strong> the write-up, from memory first.</li>
+  <li><strong>After passing:</strong> flip that cert to keep-warm on the review page.</li>
+</ul>
