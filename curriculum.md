@@ -4,9 +4,9 @@ Ordered path for the three AWS AI certifications that matter most for TEKsystems
 
 | Priority | Certification | Exam | Level | Cost | Curriculum |
 |---|---|---|---|---|---|
-| **1** | [AWS Certified AI Practitioner](https://aws.amazon.com/certification/certified-ai-practitioner/) | AIF-C01 | Foundational | $100 | [AIF-C01.md](AIF-C01.md) |
-| **2** | [AWS Certified Machine Learning Engineer – Associate](https://aws.amazon.com/certification/certified-machine-learning-engineer-associate/) | MLA-C02 | Associate | $150 ($75 beta) | [MLA-C02.md](MLA-C02.md) |
-| **3** | [AWS Certified Generative AI Developer – Professional](https://aws.amazon.com/certification/certified-generative-ai-developer-professional/) | AIP-C01 | Professional | $300 | [AIP-C01.md](AIP-C01.md) |
+| **1** | [AWS Certified AI Practitioner](https://aws.amazon.com/certification/certified-ai-practitioner/) | AIF-C01 | Foundational | $100 | [AIF-C01](AIF-C01 AWS Certified AI Practitioner.md) |
+| **2** | [AWS Certified Machine Learning Engineer – Associate](https://aws.amazon.com/certification/certified-machine-learning-engineer-associate/) | MLA-C02 | Associate | $150 ($75 beta) | [MLA-C02](MLA-C02 AWS Certified Machine Learning Engineer – Associate.md) |
+| **3** | [AWS Certified Generative AI Developer – Professional](https://aws.amazon.com/certification/certified-generative-ai-developer-professional/) | AIP-C01 | Professional | $300 | [AIP-C01](AIP-C01 AWS Certified Generative AI Developer – Professional.md) |
 
 **Do not skip the order.** AIF → MLA → AIP stacks concepts (concepts → pipelines → production GenAI) and matches how AWS recommends progressing after AI Practitioner.
 
@@ -20,9 +20,9 @@ Assume ~5–8 hrs/week of focused study plus hands-on. Adjust up if you already 
 
 | Phase | Cert | Suggested duration | Exit criteria |
 |---|---|---|---|
-| 1 | [AIF-C01](AIF-C01.md) | 2–3 weeks | Official practice exam ≥80%; can explain FM vs traditional ML, RAG, responsible AI, and core AWS AI services |
-| 2 | [MLA-C02](MLA-C02.md) | 6–8 weeks | Can prepare data, train/tune, deploy, and monitor ML + FM workloads on SageMaker/Bedrock; practice exam ≥80% |
-| 3 | [AIP-C01](AIP-C01.md) | 8–10 weeks | Can design, implement, secure, optimize, and troubleshoot production GenAI (RAG, agents, evals) on AWS |
+| 1 | [AIF-C01](AIF-C01 AWS Certified AI Practitioner.md) | 2–3 weeks | Official practice exam ≥80%; can explain FM vs traditional ML, RAG, responsible AI, and core AWS AI services |
+| 2 | [MLA-C02](MLA-C02 AWS Certified Machine Learning Engineer – Associate.md) | 6–8 weeks | Can prepare data, train/tune, deploy, and monitor ML + FM workloads on SageMaker/Bedrock; practice exam ≥80% |
+| 3 | [AIP-C01](AIP-C01 AWS Certified Generative AI Developer – Professional.md) | 8–10 weeks | Can design, implement, secure, optimize, and troubleshoot production GenAI (RAG, agents, evals) on AWS |
 
 **Rough calendar:** ~4–5 months end-to-end. Compress Phase 1 if you already know GenAI vocabulary; do not compress Phase 3.
 
