@@ -1,6 +1,6 @@
 ---
 title: "Ask Composite Code, BN: <milestone name>"
-date: YYYY-MM-DD
+date: 2027-01-01  # replace with the publish date
 author: Adron Hall
 categories: [AWS, AI]
 tags: [aws, bedrock, sagemaker, certification, ask-composite-code]
