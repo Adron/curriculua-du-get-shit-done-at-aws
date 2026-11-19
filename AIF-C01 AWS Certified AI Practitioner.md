@@ -4,7 +4,7 @@
 
 **Goal:** Foundational AI/ML/GenAI literacy on AWS. Counts toward Premier **Foundational** certified individuals. Vocabulary base for MLA-C02 and AIP-C01.
 
-**Path:** [curriculum.md](curriculum.md) → **AIF-C01** → [MLA-C02.md](MLA-C02.md) → [AIP-C01.md](AIP-C01.md)
+**Path:** [curriculum.md](curriculum.md) → **AIF-C01** → [MLA-C02](MLA-C02 AWS Certified Machine Learning Engineer – Associate.md) → [AIP-C01](AIP-C01 AWS Certified Generative AI Developer – Professional.md)
 
 ---
 
@@ -67,7 +67,7 @@ You can answer “what / why / which AWS service” questions without needing de
 - **Official sources first:** exam guide + Skill Builder prep plan + official practice exams. Third-party dumps are a liability.
 - Light Console is enough here; deep IaC/hands-on starts in MLA.
 - **Booking:** Pearson VUE; schedule only after practice-exam threshold, not after “finishing the course.”
-- Passing [MLA-C02](MLA-C02.md) later auto-recertifies this cert.
+- Passing [MLA-C02](MLA-C02 AWS Certified Machine Learning Engineer – Associate.md) later auto-recertifies this cert.
 
 ---
 
