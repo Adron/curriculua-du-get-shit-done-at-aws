@@ -4,7 +4,7 @@ Foundational study pack for mid-2027: AI/ML/GenAI vocabulary, AWS AI service sel
 
 ## Cert overview
 
-AWS Certified AI Practitioner validates foundational knowledge of artificial intelligence (AI), machine learning (ML), and generative AI concepts and use cases on AWS. It is the first cert in the TEKsystems AI path (AIF → MLA → AIP). Target candidate: up to ~6 months exposure to AI/ML on AWS; uses solutions more than builds them.
+AWS Certified AI Practitioner validates foundational knowledge of artificial intelligence (AI), machine learning (ML), and generative AI concepts and use cases on AWS. It is the first cert in this study path (AIF → MLA → AIP). Target candidate: up to ~6 months exposure to AI/ML on AWS; uses solutions more than builds them.
 
 Out of scope for the exam role: coding models, feature engineering, hyperparameter tuning, building/deploying pipelines, deep statistical analysis, implementing security/governance frameworks end-to-end.
 
@@ -56,6 +56,21 @@ Each file under [`topics/`](./topics/) maps to one punch-list item and includes:
 - **Research links** (official AWS docs used for that note)
 
 Use punch-list checkboxes as your completion tracker. Do not memorize code; memorize *what / why / which AWS service* and tradeoffs (cost, latency, explainability, customization).
+
+## Workbooks
+
+Practice packs under [`workbooks/`](./workbooks/) turn topic notes into retrieval, judgment, and hands-on reps. Use them **after** a first skim of the linked topics; keep answer keys closed until you attempt each section.
+
+| Workbook | Focus | Est. time |
+|---|---|---|
+| [00 — How to use / schedule](./workbooks/README.md) | Learning design, 2–3 week plan | — |
+| [01 — AI/ML foundations](./workbooks/01-ai-ml-foundations.md) | Topics 01–03 · Domain 1 | 3–4 hrs |
+| [02 — GenAI fundamentals](./workbooks/02-genai-fundamentals.md) | Topics 04–06 · Domain 2 | 4–5 hrs |
+| [03 — Foundation model applications](./workbooks/03-foundation-model-applications.md) | Topics 07–10 · Domain 3 | 6–8 hrs |
+| [04 — Responsible AI, security, governance](./workbooks/04-responsible-ai-security-governance.md) | Topics 11–14 · Domains 4–5 | 3–4 hrs |
+| [05 — Capstone and exam-ready](./workbooks/05-capstone-and-exam-ready.md) | Mixed practice · ≥80% practice-exam gate | 4–6 hrs |
+
+Suggested flow: topics skim → matching workbook → punch-list checkboxes → Skill Builder → official practice exam.
 
 ## Official links
 

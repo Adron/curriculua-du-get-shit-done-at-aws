@@ -2,7 +2,7 @@
 
 **Priority:** 3 of 3 · **Level:** Professional · **Cost:** $300 · **Duration:** 8–10 weeks
 
-**Goal:** Production GenAI applications on AWS — FMs, RAG, agents (including Bedrock AgentCore), safety, optimization, and troubleshooting. Counts as **Technical** and toward Premier **Pro/Specialty** depth. Highest leverage for AI Competency delivery.
+**Goal:** Production GenAI applications on AWS — FMs, RAG, agents (including Bedrock AgentCore), safety, optimization, and troubleshooting. Deepest production GenAI credential on this path.
 
 **Path:** [curriculum.md](curriculum.md) → [AIF-C01](AIF-C01 AWS Certified AI Practitioner.md) → [MLA-C02](MLA-C02 AWS Certified Machine Learning Engineer – Associate.md) → **AIP-C01**
 
@@ -46,7 +46,7 @@ Can design, implement, secure, optimize, and troubleshoot production GenAI (RAG,
    - Agent with tools/gateway patterns (AgentCore where applicable)
    - Guardrails, logging, eval harness, cost/latency controls
 4. Deep-read: prompt/flow management, Knowledge Bases, Agents/AgentCore, Guardrails, evaluation, IAM for agents, VPC/private access patterns.
-5. Optional companion (does **not** count for partner tier): Skill Builder **AWS Agentic AI Demonstrated** microcredential for AgentCore hands-on proof.
+5. Optional companion: Skill Builder **AWS Agentic AI Demonstrated** microcredential for AgentCore hands-on practice (not required for the exam).
 6. Official practice exam → schedule at ≥80%.
 
 ---
@@ -72,7 +72,6 @@ You can defend architecture choices for a production GenAI system under security
 
 - **Official sources first:** exam guide + Skill Builder prep plan + official practice exams.
 - **Hands-on required:** Console + IaC; ship a production-shaped project, not only courseware.
-- Partner leverage: strengthens Pro/Specialty mix on the Premier scorecard.
 - **Booking:** Pearson VUE; schedule only after practice-exam threshold.
 
 ---

@@ -1,6 +1,6 @@
-# TEKsystems AWS AI Certification Curriculum
+# AWS AI Certification Curriculum
 
-Ordered path for the three AWS AI certifications that matter most for TEKsystems’ AWS Premier Tier standing and AI/ML delivery coverage.
+Ordered path for studying and taking three AWS AI certifications: AI Practitioner → ML Engineer Associate → Generative AI Developer Professional.
 
 | Priority | Certification | Exam | Level | Cost | Curriculum |
 |---|---|---|---|---|---|
@@ -10,7 +10,7 @@ Ordered path for the three AWS AI certifications that matter most for TEKsystems
 
 **Do not skip the order.** AIF → MLA → AIP stacks concepts (concepts → pipelines → production GenAI) and matches how AWS recommends progressing after AI Practitioner.
 
-**Out of scope for this path:** Cloud Practitioner, Solutions Architect, Developer Associate, CloudOps, AI Business Strategist. Those count for partnership too, but these three are the AI-specific set TEKsystems needs covered.
+**Out of scope for this path:** Cloud Practitioner, Solutions Architect, Developer Associate, CloudOps, AI Business Strategist. Useful credentials, but this curriculum focuses only on these three AI exams.
 
 ---
 
@@ -32,7 +32,6 @@ Assume ~5–8 hrs/week of focused study plus hands-on. Adjust up if you already 
 
 - **Official sources first:** exam guides + Skill Builder prep plans + official practice exams. Third-party dumps are a liability.
 - **Hands-on after AIF:** Console + IaC (CDK/Terraform/CloudFormation) for MLA and AIP; reading alone will not hold.
-- **Partner value check:** each of these three counts on the Premier Foundational/Technical scorecard; AIP also strengthens Pro/Specialty mix.
 - **Recertification:** each cert lasts 3 years. Passing MLA auto-recertifies AIF — another reason to take them in order.
 - **Booking:** Pearson VUE; schedule only after practice-exam threshold, not after “finishing the course.”
 

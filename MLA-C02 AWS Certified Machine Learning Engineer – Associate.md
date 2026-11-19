@@ -2,7 +2,7 @@
 
 **Priority:** 2 of 3 · **Level:** Associate · **Cost:** $150 ($75 beta) · **Duration:** 6–8 weeks
 
-**Goal:** Build, deploy, and operate ML and foundation-model solutions on AWS. Counts as **Technical**. Primary builder credential for ML Consulting / AI delivery staff. Auto-recertifies AIF-C01.
+**Goal:** Build, deploy, and operate ML and foundation-model solutions on AWS. Primary builder credential on this path. Auto-recertifies AIF-C01.
 
 **Path:** [curriculum.md](curriculum.md) → [AIF-C01](AIF-C01 AWS Certified AI Practitioner.md) → **MLA-C02** → [AIP-C01](AIP-C01 AWS Certified Generative AI Developer – Professional.md)
 
