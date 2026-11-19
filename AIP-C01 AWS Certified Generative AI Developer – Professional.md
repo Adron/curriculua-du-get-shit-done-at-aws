@@ -4,7 +4,7 @@
 
 **Goal:** Production GenAI applications on AWS — FMs, RAG, agents (including Bedrock AgentCore), safety, optimization, and troubleshooting. Counts as **Technical** and toward Premier **Pro/Specialty** depth. Highest leverage for AI Competency delivery.
 
-**Path:** [curriculum.md](curriculum.md) → [AIF-C01.md](AIF-C01.md) → [MLA-C02.md](MLA-C02.md) → **AIP-C01**
+**Path:** [curriculum.md](curriculum.md) → [AIF-C01](AIF-C01 AWS Certified AI Practitioner.md) → [MLA-C02](MLA-C02 AWS Certified Machine Learning Engineer – Associate.md) → **AIP-C01**
 
 Do not compress this phase. Production depth is the point.
 
