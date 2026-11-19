@@ -1,21 +1,23 @@
 ---
 layout: default
-title: "Workbook 05 — Capstone and Exam-Ready"
+title: "Workbook 05: Capstone & Exam-Ready"
 ---
 
-# Workbook 05 — Capstone & Exam-Ready
+# Workbook 05: Capstone & Exam-Ready
 
-**Covers:** Interleaved practice across topics [01](../topics/01-ai-ml-terminology-and-concepts.md)–[14](../topics/14-ai-governance-and-compliance.md)  
-**Domains:** All (weighted toward 2–3)  
-**Prerequisites:** Workbooks [01](./01-ai-ml-foundations.md)–[04](./04-responsible-ai-security-governance.md) mastery checklists (or equivalent).  
-**Estimated time:** 4–6 hours (+ separate official practice exam)  
+**Covers:** Interleaved practice across topics [01](../topics/01-ai-ml-terminology-and-concepts.md)-[14](../topics/14-ai-governance-and-compliance.md)  
+**Domains:** All (weighted toward 2-3)  
+**Prerequisites:** Workbooks [01](./01-ai-ml-foundations.md)-[04](./04-responsible-ai-security-governance.md) mastery checklists (or equivalent).  
+**Estimated time:** 4-6 hours (+ separate official practice exam)  
 **Nav:** [Workbooks home](./README.md) · [Punch list](../PUNCH-LIST.md) · [Cert README](../README.md)
+
+This is where it all gets mixed together, the way the real exam does it. No more one-domain-at-a-time. Every scenario here pulls from two or three domains at once, and the goal is to make the judgment call fast and explain why. It's also the checkpoint for the first leg of [the build](../../build.md): by the end of this workbook I want B1 through B3 actually done, not just read about.
 
 ---
 
 ## Learning objectives
 
-By the end of this workbook you can:
+By the end of this one, I want to be able to:
 
 1. Solve mixed scenarios that combine technique selection, AWS service choice, RAG/agents, responsible AI, and security/governance in one judgment call.
 2. Explain tradeoffs out loud under time pressure (exam-style).
@@ -26,7 +28,9 @@ By the end of this workbook you can:
 
 ## Activate prior knowledge
 
-1. Which workbook felt hardest — foundations, GenAI stack, FM apps, or RAI/security? Why?
+Be honest with yourself here. This sets up the rest of the workbook:
+
+1. Which workbook felt hardest: foundations, GenAI stack, FM apps, or RAI/security? Why?
 2. Name the heaviest exam domain by weight without looking.
 3. What is your personal “default wrong answer” (e.g., always fine-tune)? Write it down to watch for it.
 
@@ -38,10 +42,10 @@ Skim only what you flagged weak:
 
 | Domain | Jump |
 |---|---|
-| 1 | [WB01](./01-ai-ml-foundations.md) · topics [01](../topics/01-ai-ml-terminology-and-concepts.md)–[03](../topics/03-ai-ml-lifecycle-and-mlops-basics.md) |
-| 2 | [WB02](./02-genai-fundamentals.md) · [04](../topics/04-genai-foundational-concepts.md)–[06](../topics/06-aws-genai-infrastructure-and-services.md) |
-| 3 | [WB03](./03-foundation-model-applications.md) · [07](../topics/07-fm-application-design-rag-agents.md)–[10](../topics/10-fm-evaluation-methods-and-metrics.md) |
-| 4–5 | [WB04](./04-responsible-ai-security-governance.md) · [11](../topics/11-responsible-ai-principles-and-practices.md)–[14](../topics/14-ai-governance-and-compliance.md) |
+| 1 | [WB01](./01-ai-ml-foundations.md) · topics [01](../topics/01-ai-ml-terminology-and-concepts.md)-[03](../topics/03-ai-ml-lifecycle-and-mlops-basics.md) |
+| 2 | [WB02](./02-genai-fundamentals.md) · [04](../topics/04-genai-foundational-concepts.md)-[06](../topics/06-aws-genai-infrastructure-and-services.md) |
+| 3 | [WB03](./03-foundation-model-applications.md) · [07](../topics/07-fm-application-design-rag-agents.md)-[10](../topics/10-fm-evaluation-methods-and-metrics.md) |
+| 4-5 | [WB04](./04-responsible-ai-security-governance.md) · [11](../topics/11-responsible-ai-principles-and-practices.md)-[14](../topics/14-ai-governance-and-compliance.md) |
 
 Official: [exam guide](https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01.html) · [Skill Builder](https://skillbuilder.aws/)
 
@@ -49,9 +53,9 @@ Official: [exam guide](https://docs.aws.amazon.com/aws-certification/latest/ai-p
 
 ## Retrieval practice (closed-book mixed set)
 
-Set a 25-minute timer. Answer all before the key.
+Set a 25-minute timer. Answer all 18 before you touch the key.
 
-1. Hierarchy: AI / ML / DL / GenAI / agentic — one line each.
+1. Hierarchy: AI / ML / DL / GenAI / agentic: one line each.
 2. Rare fraud detection: prioritize precision or recall? Why?
 3. Speech → text at scale: service?
 4. Token vs embedding roles.
@@ -60,7 +64,7 @@ Set a 25-minute timer. Answer all before the key.
 7. RAG loop seven words or less.
 8. Default customization ladder (4+ steps).
 9. Temp for creative vs extraction.
-10. ROUGE / BLEU / BERTScore / LLM-as-judge — match to purpose.
+10. ROUGE / BLEU / BERTScore / LLM-as-judge: match each to its purpose.
 11. Guardrails: name four filter families.
 12. Model Cards: three required-style fields.
 13. Prompt injection vs jailbreak.
@@ -76,7 +80,7 @@ Score: __ / 18. Revisit topics for misses before scenarios.
 
 ## Worked example → guided → independent (full systems)
 
-### Worked example — “Contoso Field Service Copilot”
+### Worked example: "Contoso Field Service Copilot"
 
 **Requirements:** Techs ask natural-language questions over manuals + work orders; bot may create a parts order; must not invent safety procedures; PII in work orders; auditors need invoke history; Region lock EU.
 
@@ -93,9 +97,11 @@ Score: __ / 18. Revisit topics for misses before scenarios.
 | Governance | CloudTrail; Config on buckets; residency EU; Scope 3 |
 | Not first | Fine-tune manuals weekly; public Scope 1 chat for confidential WOs |
 
+If this table looks familiar, it should. It's the same shape as "Ask Composite Code" in [the build](../../build.md): RAG over a pile of documents ([B2](../../build.md#b2)), a guardrail in front ([B3](../../build.md#b3)), and later an agent with tools ([B10](../../build.md#b10)). Field manuals instead of blog posts, same architecture.
+
 ---
 
-### Guided practice — fill the architecture
+### Guided practice: fill in the architecture
 
 **G1. Retail returns chatbot** (policy PDFs + “approve return” API + brand tone):  
 Knowledge = ________ | Tone = ________ first | Actions = ________ | Eval = ________ | Scope = ________
@@ -110,7 +116,7 @@ Model family vibe = ________ | Risk = ________ | Controls = ________ | Service =
 
 ### Independent practice
 
-- [ ] **I1.** Write a one-page design for **your** team’s most likely GenAI use case using the Contoso table template.
+- [ ] **I1.** Write a one-page design for **your** team's most likely GenAI use case using the Contoso table template. (No team use case handy? Do it for Ask Composite Code. That's what I'm doing.)
 - [ ] **I2.** Create 8 flashcards from your retrieval misses only; review tomorrow.
 - [ ] **I3.** Timed drill: 10 scenarios below in ≤20 minutes (answers after).
 
@@ -118,7 +124,7 @@ Model family vibe = ________ | Risk = ________ | Controls = ________ | Service =
 
 ## Scenario / decision exercises (exam-style mixed)
 
-For each, pick the **best** primary answer. One-line why.
+For each, pick the **best** primary answer and give a one-line why. Time yourself.
 
 **S1.** Exact payroll tax withholding.  
 - [ ] A) LLM  
@@ -156,7 +162,7 @@ For each, pick the **best** primary answer. One-line why.
 - [ ] C) Switch to diffusion  
 
 **S8.** Public ChatGPT for drafting confidential M&A memo.  
-- [ ] A) Scope 1 — high leakage risk; use enterprise controls instead  
+- [ ] A) Scope 1: high leakage risk; use enterprise controls instead  
 - [ ] B) Perfectly fine always  
 - [ ] C) Same as Scope 5  
 
@@ -182,11 +188,11 @@ For each, pick the **best** primary answer. One-line why.
 
 ---
 
-## Hands-on lab — exam readiness simulation
+## Hands-on lab: exam readiness simulation
 
-### Option A — Console circuit (60–90 min)
+### Option A: Console circuit (60-90 min)
 
-Run a mini “day in the life” without building production:
+Run a mini "day in the life" without building anything production-grade. If you've been doing the build, most of this is just revisiting [B1](../../build.md#b1) (playground), [B2](../../build.md#b2) (Knowledge Base), and [B3](../../build.md#b3) (Guardrails) with exam eyes on:
 
 - [ ] Bedrock playground: factual Q at low temp  
 - [ ] Guardrails test window: blocked topic or PII mask demo  
@@ -196,9 +202,16 @@ Run a mini “day in the life” without building production:
 - [ ] Note CloudTrail event history filter for `bedrock` if enabled  
 - [ ] Re-read scoping matrix page  
 
-### Option B — Paper war-room
+### Option B: Paper war-room
 
-- [ ] On one whiteboard/page: draw Domain weights pie; list top 10 “which service?” mappings; list customization ladder; list Scopes 1–5. Photo it for spaced review.
+- [ ] On one whiteboard/page: draw the Domain weights pie; list the top 10 "which service?" mappings; list the customization ladder; list Scopes 1-5. Take a photo of it for spaced review.
+
+### Build checkpoint
+
+- [ ] [B1](../../build.md#b1) done: same questions across models and temperatures, notes on what changed
+- [ ] [B2](../../build.md#b2) done: a Knowledge Base over ~20 posts, citations checked against what I actually wrote
+- [ ] [B3](../../build.md#b3) done: Guardrail in front of it, prompt injection attempts logged (what got through, what didn't)
+- [ ] Short write-up of what I learned. That's a blog post, honestly.
 
 ### Official practice path
 
@@ -212,7 +225,7 @@ Run a mini “day in the life” without building production:
 
 ---
 
-## Common misconceptions / exam traps (cross-domain greatest hits)
+## Common misconceptions / exam traps (the cross-domain greatest hits)
 
 | # | Trap | Reflex |
 |---|---|---|
@@ -224,7 +237,7 @@ Run a mini “day in the life” without building production:
 | 6 | MCP = model | Protocol |
 | 7 | Prompts alone stop attacks | Guardrails + IAM |
 | 8 | Artifact = who called API | CloudTrail |
-| 9 | Scope 1 for secrets | Don’t |
+| 9 | Scope 1 for secrets | Don't |
 | 10 | Eval only BLEU for chat | HITL + task KPIs |
 | 11 | Ignore business metrics | Pair model + business |
 | 12 | LLM as ACL | Filter before context |
@@ -233,7 +246,7 @@ Run a mini “day in the life” without building production:
 
 ## Reflection / teach it back
 
-Deliver a **10-minute oral exam** to a peer (or voice memo):
+Give yourself a **10-minute oral exam**, to a peer or into a voice memo:
 
 1. Domain weights and study priority.  
 2. One end-to-end Contoso-style design.  
@@ -248,13 +261,13 @@ Deliver a **10-minute oral exam** to a peer (or voice memo):
 ### Content mastery
 
 - [ ] Mixed retrieval ≥15/18 (or remediated to that after review)
-- [ ] Scenarios S1–S12 ≥10/12 on first timed pass
+- [ ] Scenarios S1-S12 ≥10/12 on first timed pass
 - [ ] Can teach Contoso-style design without notes
-- [ ] Punch list Domains 1–5 items checked ([PUNCH-LIST.md](../PUNCH-LIST.md))
+- [ ] Punch list Domains 1-5 items checked ([PUNCH-LIST.md](../PUNCH-LIST.md))
 
 ### Exam mechanics readiness
 
-- [ ] Read official exam guide end-to-end once  
+- [ ] Read the official exam guide end to end once  
 - [ ] Know formats: multiple choice/response, ordering, matching; 90 minutes; 65 questions; 700/1000 pass  
 - [ ] Practice exam ≥80% **more than once** (consistency)  
 - [ ] Weak-domain remediation logged  
@@ -265,7 +278,7 @@ Deliver a **10-minute oral exam** to a peer (or voice memo):
 
 - [ ] Default to RAG before fine-tune  
 - [ ] Pair every model metric with a business metric  
-- [ ] Security: least privilege + Guardrails + don’t trust the model as ACL  
+- [ ] Security: least privilege + Guardrails + don't trust the model as an ACL  
 
 **Exit:** Checklist green → schedule exam · Otherwise loop WB02/WB03 retrieval + official practice.
 

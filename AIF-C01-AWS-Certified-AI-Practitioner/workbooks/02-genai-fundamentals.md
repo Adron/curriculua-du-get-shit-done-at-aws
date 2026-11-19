@@ -1,21 +1,23 @@
 ---
 layout: default
-title: "Workbook 02 — GenAI Fundamentals"
+title: "Workbook 02: GenAI Fundamentals"
 ---
 
-# Workbook 02 — GenAI Fundamentals
+# Workbook 02: GenAI Fundamentals
 
 **Covers:** [topics/04](../topics/04-genai-foundational-concepts.md) · [05](../topics/05-genai-capabilities-limitations-selection.md) · [06](../topics/06-aws-genai-infrastructure-and-services.md)  
-**Domain:** 2 — Fundamentals of GenAI (24%)  
+**Domain:** 2, Fundamentals of GenAI (24%)  
 **Prerequisites:** [Workbook 01](./01-ai-ml-foundations.md) mastery checklist (or equivalent Domain 1 comfort).  
-**Estimated time:** 4–5 hours  
+**Estimated time:** 4-5 hours  
 **Nav:** [Workbooks home](./README.md) · [Punch list](../PUNCH-LIST.md)
+
+Tokens, embeddings, context windows, and the AWS GenAI service map. This is the plumbing under everything in Domain 3, and it's where the cost and latency questions come from. If "just paste the whole PDF in the prompt" still sounds reasonable to you, this workbook is going to fix that.
 
 ---
 
 ## Learning objectives
 
-By the end of this workbook you can:
+By the end of this one, I want to be able to:
 
 1. Define tokens, embeddings, vectors, chunking, transformers/LLMs/FMs, multimodal, and diffusion at exam depth.
 2. Explain token-based pricing and context engineering tradeoffs (cost, latency, quality).
@@ -26,6 +28,8 @@ By the end of this workbook you can:
 ---
 
 ## Activate prior knowledge
+
+Think about what you've already done with these tools before learning anything new:
 
 1. Last time you used ChatGPT/Claude/Bedrock: what went in the **prompt**, and what else might belong in the **context window** (history, docs, tools)?
 2. Have you ever hit a context length or bill shock from a long prompt? What would you cut first?
@@ -42,7 +46,7 @@ By the end of this workbook you can:
 | Chunking | Split docs before embed/index for RAG | [04](../topics/04-genai-foundational-concepts.md) |
 | Context engineering | Curate *what* enters the window | [04](../topics/04-genai-foundational-concepts.md) |
 | Agent / MCP | Plan + tools + memory; MCP = tool/context protocol | [04](../topics/04-genai-foundational-concepts.md) |
-| Hallucinations | Fluent falsehoods — mitigate with grounding/Guardrails/HITL | [05](../topics/05-genai-capabilities-limitations-selection.md) |
+| Hallucinations | Fluent falsehoods; mitigate with grounding/Guardrails/HITL | [05](../topics/05-genai-capabilities-limitations-selection.md) |
 | Selection factors | Modality, quality, cost, latency, compliance, ops | [05](../topics/05-genai-capabilities-limitations-selection.md) |
 | Service map | Bedrock API · SageMaker/JumpStart host · AgentCore ops · Strands code · Quick BI · Kiro IDE | [06](../topics/06-aws-genai-infrastructure-and-services.md) |
 
@@ -50,10 +54,12 @@ By the end of this workbook you can:
 
 ## Retrieval practice (closed-book)
 
+Answers on paper first. No peeking.
+
 1. Token vs embedding: which drives **similarity search**, which drives **billing limits**?
 2. Why does stuffing an entire PDF into the prompt fail at scale?
 3. Diffusion models are most associated with which modality?
-4. Context engineering vs prompt engineering — one sentence each.
+4. Context engineering vs prompt engineering: one sentence each.
 5. MCP is: (a) a foundation model, (b) a protocol for tools/context, (c) a vector DB.
 6. Three advantages of GenAI; three limitations.
 7. Name four model selection factors besides “accuracy.”
@@ -79,7 +85,7 @@ By the end of this workbook you can:
 | Cost | Pay for retrieved chunks + answer tokens, not full corpus every call |
 | Hallucinations | Citations + grounding checks; lower temperature |
 | AWS | Bedrock Knowledge Bases + Guardrails; not JumpStart “because GenAI” |
-| Scope later | Enterprise app calling pre-trained FMs (scoping matrix Scope 3 — see WB04) |
+| Scope later | Enterprise app calling pre-trained FMs (scoping matrix Scope 3; see WB04) |
 
 ---
 
@@ -139,7 +145,9 @@ By the end of this workbook you can:
 
 ## Hands-on lab
 
-### Option A — Console
+### Option A: Console
+
+L1 is basically [B1](../../build.md#b1), and L3 sets up [B2](../../build.md#b2). If you're doing the build, knock them out together.
 
 - [ ] **L1.** Bedrock playground: send the same factual question at temperature 0 vs ~1. Note variance. ([Bedrock User Guide](https://docs.aws.amazon.com/bedrock/latest/userguide/what-is-bedrock.html))
 - [ ] **L2.** Count rough tokens (words×1.3 heuristic or console token estimate if shown) for a short vs long prompt; relate to pricing docs.
@@ -147,7 +155,7 @@ By the end of this workbook you can:
 - [ ] **L4.** Open SageMaker JumpStart FM list (or docs) and contrast “deploy endpoint” vs Bedrock invoke.
 - [ ] **L5.** Skim [AgentCore](https://docs.aws.amazon.com/bedrock-agentcore/) “what is” page; list runtime / memory / identity / observability in your notes.
 
-### Option B — Paper
+### Option B: Paper
 
 - [ ] Draw context window layers: system prompt | retrieved chunks | user message | tool results. Annotate cost drivers and a hallucination risk if a layer is missing.
 
@@ -163,13 +171,13 @@ By the end of this workbook you can:
 | Biggest model always | Cost/latency/compliance may win with smaller + RAG |
 | Quick = Bedrock | Quick = business GenAI/BI; Bedrock = builder FM APIs |
 | JumpStart default for all GenAI | Bedrock often enough for managed API |
-| GenAI always accurate | Hallucinations — ground, evaluate, HITL |
+| GenAI always accurate | Hallucinations. Ground, evaluate, HITL. |
 
 ---
 
 ## Reflection / teach it back
 
-Teach a 5-minute “GenAI on AWS” briefing:
+Give a 5-minute "GenAI on AWS" briefing to a teammate, a rubber duck, or your phone's voice recorder:
 
 1. Tokens, embeddings, chunking, RAG loop.  
 2. Hallucination + one mitigation.  

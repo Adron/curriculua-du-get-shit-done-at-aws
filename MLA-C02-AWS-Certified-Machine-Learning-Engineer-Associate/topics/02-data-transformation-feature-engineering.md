@@ -1,16 +1,20 @@
-# 02 — Data transformation and feature engineering
+---
+title: "02: Data transformation and feature engineering"
+---
 
-**Domain 1 · Task 1.2** · Skills **1.2.1–1.2.9** · Domain weight **28%**
+# 02: Data transformation and feature engineering
 
-## What it is
+**Domain 1 (28%) · Task 1.2 · Skills 1.2.1-1.2.9**
 
-Turning raw data into model-ready features and GenAI-ready corpora: ETL/ELT, classic FE, embeddings, text/RAG preprocessing, PII handling, and FM customization datasets.
+Raw data in, model-ready features and GenAI-ready corpora out. That covers ETL/ELT, classic feature engineering, embeddings, text and RAG preprocessing, PII handling, and building datasets for FM customization.
 
-## Why it matters for MLA-C02
+This sits in the heaviest domain on the exam, and C02 piles on top of the usual Glue/EMR/Data Wrangler/Feature Store material: **embeddings**, **advanced text prep**, **RAG chunking and metadata**, **anonymization**, and **data prep for fine-tuning, continued pre-training, and distillation**.
 
-Largest domain. C02 adds **embeddings**, **advanced text prep**, **RAG chunking/metadata**, **anonymization**, and **FM fine-tune / CPT / distillation data prep** on top of Glue/EMR/Data Wrangler/Feature Store.
+Honestly, this is where most real ML work goes. The model is the easy part. **Getting the data into a shape you can trust, and doing it the same way at training and inference time, is the job.**
 
-## Exam-relevant skills map
+## What to know
+
+### Skills map
 
 | Skill | Focus |
 |---|---|
@@ -24,7 +28,7 @@ Largest domain. C02 adds **embeddings**, **advanced text prep**, **RAG chunking/
 | 1.2.8 | Mask, redact, anonymize |
 | 1.2.9 | Prep for fine-tuning, continuous pre-training, distillation |
 
-## Tooling cheat sheet
+### Tooling cheat sheet
 
 | Tool | Strength |
 |---|---|
@@ -34,16 +38,16 @@ Largest domain. C02 adds **embeddings**, **advanced text prep**, **RAG chunking/
 | **SageMaker Data Wrangler** | Interactive FE → export Processing / Feature Store |
 | **Lambda + Spark streaming** | Event/stream feature transforms |
 
-## Classic feature engineering (still tested)
+### Classic feature engineering (still tested)
 
-- Scaling / standardization / normalization for distance-based & neural models
-- Binning, log transforms for skew
-- Feature splitting / encoding categoricals
-- Train/serve **skew** avoidance: same transforms at training and inference (Feature Store helps)
+- Scaling, standardization, and normalization for distance-based and neural models
+- Binning and log transforms for skew
+- Feature splitting and encoding categoricals
+- Avoid train/serve **skew**: same transforms at training and inference. Feature Store helps here.
 
-## Embeddings & RAG prep (C02)
+### Embeddings and RAG prep (C02)
 
-**Embeddings:** map text/images to dense vectors for similarity search and RAG. Choose embedding model for modality, dimension, and cost.
+**Embeddings** map text and images to dense vectors for similarity search and RAG. Pick the embedding model by modality, dimension, and cost.
 
 **Bedrock Knowledge Bases chunking:**
 
@@ -55,46 +59,50 @@ Largest domain. C02 adds **embeddings**, **advanced text prep**, **RAG chunking/
 | Semantic | Break on meaning (FM cost) | Better coherence, higher cost |
 | No chunking | Whole doc = one chunk | DIY chunking / custom Lambda |
 
-Also extract **metadata** (source, page, product, ACL tags) for filtered retrieval. Multimodal: audio/video may chunk at embedding-model duration; BDA path converts to text then text-chunks.
+Also extract **metadata** (source, page, product, ACL tags) so you can filter retrieval. For multimodal: audio and video may chunk at the embedding model's duration; the BDA path converts to text first, then text-chunks.
 
-## FM training data prep
+### FM training data prep
 
 | Technique | Data shape |
 |---|---|
-| Fine-tuning | Task-specific prompt–completion (or chat) pairs |
+| Fine-tuning | Task-specific prompt-completion (or chat) pairs |
 | Continuous pre-training | Large unlabeled domain corpus |
 | Distillation | Teacher outputs → student training set |
 
-Validate JSONL schemas, balance tasks, strip PII, enforce content safety before jobs.
+Before any job runs: validate JSONL schemas, balance tasks, strip PII, and enforce content safety.
 
-## Anonymization
+### Anonymization
 
-Mask/redact PII before training or RAG (Macie discovery concepts + transform recipes; Bedrock Guardrails sensitive-info filters at inference — know the **stage** difference).
+Mask or redact PII before training or RAG (Macie discovery concepts plus transform recipes). Bedrock Guardrails sensitive-info filters work at inference. **Know the stage difference.** They're not the same control.
 
-## AWS services
+## AWS services in play
 
-Glue, Glue DataBrew, EMR, SageMaker Data Wrangler, Feature Store, Lambda, Bedrock embeddings + Knowledge Bases, Comprehend (NLP helpers), Macie (sensitive data discovery).
+Glue, Glue DataBrew, EMR, SageMaker Data Wrangler, Feature Store, Lambda, Bedrock embeddings + Knowledge Bases, Comprehend (NLP helpers), and Macie (sensitive data discovery).
 
-## Hands-on practice
+## Hands-on
 
-1. Data Wrangler flow: clean → engineer → export to Feature Store / Processing job.
-2. Glue job: join S3 + RDS extract → Parquet curated zone.
-3. Create a Bedrock KB; try default vs fixed-size vs hierarchical chunking; compare retrieval quality.
-4. Build a small fine-tune JSONL and validate schema/length before a Bedrock/SageMaker customization job.
+1. Data Wrangler flow: clean, engineer, export to Feature Store or a Processing job.
+2. Glue job: join an S3 + RDS extract into a Parquet curated zone. For [B4](../../build.md#b4) it's the same move on blog posts: strip the Jekyll front matter, keep the categories as columns, write Parquet.
+3. Create a Bedrock KB and try default vs fixed-size vs hierarchical chunking. Compare retrieval quality. That's the warm-up for [B6](../../build.md#b6).
+4. Build a small fine-tune JSONL and validate schema and length before a Bedrock/SageMaker customization job.
 
-## Common traps
+## Exam traps
 
-- Engineering features only in notebooks — not reproducible for inference.
-- Huge chunks → diluted retrieval; tiny chunks → lost context.
-- Forgetting overlap / metadata filters on RAG.
-- Applying train-only transforms that aren’t available at serve time.
-- Mixing “anonymize in ETL” with “Guardrails at inference” as the same control.
+- Engineering features only in notebooks. Not reproducible for inference.
+- Huge chunks dilute retrieval; tiny chunks lose context.
+- Forgetting overlap or metadata filters on RAG.
+- Applying train-only transforms that aren't available at serve time.
+- Treating "anonymize in ETL" and "Guardrails at inference" as the same control.
+
+## Exam guide mapping
+
+- **Domain 1 (28%) · Task 1.2 · Skills 1.2.1-1.2.9**: data transformation and feature engineering.
 
 ## Research links
 
-- https://docs.aws.amazon.com/bedrock/latest/userguide/kb-chunking.html
-- https://docs.aws.amazon.com/bedrock/latest/userguide/kb-how-it-works.html
-- https://docs.aws.amazon.com/sagemaker/latest/dg/feature-store.html
-- https://docs.aws.amazon.com/prescriptive-guidance/latest/retrieval-augmented-generation-options/rag-fully-managed-bedrock.html
-- https://docs.aws.amazon.com/glue/latest/dg/what-is-glue.html
-- https://docs.aws.amazon.com/sagemaker/latest/dg/data-wrangler.html
+- <https://docs.aws.amazon.com/bedrock/latest/userguide/kb-chunking.html>
+- <https://docs.aws.amazon.com/bedrock/latest/userguide/kb-how-it-works.html>
+- <https://docs.aws.amazon.com/sagemaker/latest/dg/feature-store.html>
+- <https://docs.aws.amazon.com/prescriptive-guidance/latest/retrieval-augmented-generation-options/rag-fully-managed-bedrock.html>
+- <https://docs.aws.amazon.com/glue/latest/dg/what-is-glue.html>
+- <https://docs.aws.amazon.com/sagemaker/latest/dg/data-wrangler.html>

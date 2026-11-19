@@ -1,16 +1,20 @@
-# 06 — Model and system evaluation
+---
+title: "06: Model and system evaluation"
+---
 
-**Domain 2 · Task 2.3** · Skills **2.3.1–2.3.10** · Domain weight **24%**
+# 06: Model and system evaluation
 
-## What it is
+**Domain 2 (24%) · Task 2.3 · Skills 2.3.1-2.3.10**
 
-Proving models and GenAI systems work: reproducible experiments, baselines/drift, shadow traffic, explainability, NLP metrics, human + LLM-as-judge evals, and RAG retrieval monitoring.
+How do you prove the thing works? Reproducible experiments, baselines and drift, shadow traffic, explainability, NLP metrics, human and LLM-as-judge evals, and monitoring RAG retrieval.
 
-## Why it matters for MLA-C02
+C02 expands evaluation a lot: **MLflow**, **Bedrock evaluations**, **Prompt Management**, **BLEU/ROUGE/BERTScore**, **LLM-as-judge**, human-in-the-loop, and **RAG monitoring**.
 
-C02 heavily expands evaluation: **MLflow**, **Bedrock evaluations**, **Prompt Management**, **BLEU/ROUGE/BERTScore**, **LLM-as-judge**, HITL, and **RAG monitoring**.
+**"It looked good when I tried it" is not an evaluation.** It's a vibe. The exam wants numbers, versions, and baselines, and so does anybody who has to run the thing in production.
 
-## Exam-relevant skills map
+## What to know
+
+### Skills map
 
 | Skill | Focus |
 |---|---|
@@ -25,7 +29,7 @@ C02 heavily expands evaluation: **MLflow**, **Bedrock evaluations**, **Prompt Ma
 | 2.3.9 | LLM-as-judge, bias, content quality |
 | 2.3.10 | RAG monitoring / retrieval accuracy |
 
-## Experiment tracking
+### Experiment tracking
 
 | Tool | Use |
 |---|---|
@@ -33,20 +37,20 @@ C02 heavily expands evaluation: **MLflow**, **Bedrock evaluations**, **Prompt Ma
 | **Bedrock Model Evaluation** | Automated + human eval jobs for FMs |
 | **Bedrock Prompt Management** | Version prompts; compare variants under eval harnesses |
 
-Log data version, code commit, and prompt version — GenAI regressions are often prompt diffs.
+Log the data version, the code commit, and the prompt version. GenAI regressions are very often just a prompt diff.
 
-## Traditional ML eval & drift
+### Traditional ML eval and drift
 
-- Classification: precision/recall/F1/AUC; regression: MAE/RMSE
-- **Baselines** with Model Monitor / Clarify; alert on data quality, model quality, bias drift
-- **Shadow variants**: send production traffic copy to candidate; compare metrics without user impact
+- Classification: precision, recall, F1, AUC. Regression: MAE, RMSE.
+- **Baselines** with Model Monitor / Clarify. Alert on data quality, model quality, and bias drift.
+- **Shadow variants**: send a copy of production traffic to the candidate and compare metrics with zero user impact.
 
-## Explainability
+### Explainability
 
 - Feature attributions (Clarify/SHAP-style concepts), partial dependence
-- For GenAI: citations from RAG, reasoning traces (where available), Guardrails intervening categories
+- For GenAI: citations from RAG, reasoning traces (where available), and which Guardrails categories intervened
 
-## NLP & GenAI metrics
+### NLP and GenAI metrics
 
 | Metric | Good for |
 |---|---|
@@ -57,42 +61,46 @@ Log data version, code commit, and prompt version — GenAI regressions are ofte
 | Task-specific | Exact match, tool-call accuracy, JSON schema validity |
 | **LLM-as-judge** | Rubrics for helpfulness, faithfulness, safety |
 
-Don’t rely on BLEU alone for open-ended chat — pair with human or judge rubrics.
+Don't rely on BLEU alone for open-ended chat. Pair it with human or judge rubrics.
 
-## RAG monitoring (2.3.10)
+### RAG monitoring (2.3.10)
 
-Track separately:
+Track these separately:
 
-1. **Retrieval**: recall@k, MRR, context relevance/coverage  
-2. **Generation**: faithfulness/groundedness, citation precision  
-3. **End-to-end**: task success, latency, abstain rate  
+1. **Retrieval**: recall@k, MRR, context relevance and coverage
+2. **Generation**: faithfulness/groundedness, citation precision
+3. **End-to-end**: task success, latency, abstain rate
 
 Bedrock KB eval concepts include retrieve-only vs retrieve-and-generate metric sets (relevance, correctness, faithfulness, citation metrics).
 
-## AWS services
+## AWS services in play
 
-SageMaker MLflow, Model Registry, Model Monitor, Clarify, Debugger; Amazon Bedrock evaluations & Prompt Management; CloudWatch metrics/logs; human review workflows.
+SageMaker MLflow, Model Registry, Model Monitor, Clarify, Debugger; Amazon Bedrock evaluations and Prompt Management; CloudWatch metrics and logs; human review workflows.
 
-## Hands-on practice
+## Hands-on
 
-1. Track two training runs in MLflow; register the winner; note Model Registry package.
-2. Create a Bedrock evaluation dataset; run automated eval; compare two prompts from Prompt Management.
-3. Deploy a shadow variant; compare latency + error rate offline.
-4. Build a RAG eval sheet: labeled queries with expected doc IDs; compute hit@k before changing the generator.
+1. Track two training runs in MLflow, register the winner, and note the Model Registry package. Do it with the [B5](../../build.md#b5) classifier runs.
+2. Create a Bedrock evaluation dataset, run an automated eval, and compare two prompts from Prompt Management.
+3. Deploy a shadow variant and compare latency and error rate offline.
+4. Build a RAG eval sheet: labeled queries with the expected doc IDs. Compute hit@k **before** touching the generator. For [B6](../../build.md#b6) that's my hand-written question set: "which posts cover X?" where I already know the answer.
 
-## Common traps
+## Exam traps
 
-- One offline accuracy number = “production ready.”
-- Changing prompts without versioning.
-- Optimizing ROUGE while users care about factuality.
-- Shadow traffic without enough volume/time.
-- Ignoring retrieval failures when blaming the FM.
+- One offline accuracy number does not mean "production ready".
+- Changing prompts without versioning them.
+- Optimizing ROUGE while users actually care about factuality.
+- Running shadow traffic without enough volume or time.
+- Blaming the FM while ignoring retrieval failures.
+
+## Exam guide mapping
+
+- **Domain 2 (24%) · Task 2.3 · Skills 2.3.1-2.3.10**: model and system evaluation.
 
 ## Research links
 
-- https://docs.aws.amazon.com/sagemaker/latest/dg/mlflow.html
-- https://docs.aws.amazon.com/sagemaker/latest/dg/mlflow-track-experiments-model-registration.html
-- https://docs.aws.amazon.com/bedrock/latest/userguide/model-evaluation.html
-- https://docs.aws.amazon.com/bedrock/latest/userguide/prompt-management.html
-- https://docs.aws.amazon.com/sagemaker/latest/dg/model-monitor.html
-- https://docs.aws.amazon.com/pdfs/aws-certification/latest/machine-learning-engineer-associate-02/machine-learning-engineer-associate-02.pdf
+- <https://docs.aws.amazon.com/sagemaker/latest/dg/mlflow.html>
+- <https://docs.aws.amazon.com/sagemaker/latest/dg/mlflow-track-experiments-model-registration.html>
+- <https://docs.aws.amazon.com/bedrock/latest/userguide/model-evaluation.html>
+- <https://docs.aws.amazon.com/bedrock/latest/userguide/prompt-management.html>
+- <https://docs.aws.amazon.com/sagemaker/latest/dg/model-monitor.html>
+- <https://docs.aws.amazon.com/pdfs/aws-certification/latest/machine-learning-engineer-associate-02/machine-learning-engineer-associate-02.pdf>

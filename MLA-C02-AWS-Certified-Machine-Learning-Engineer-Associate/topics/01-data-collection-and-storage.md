@@ -1,16 +1,20 @@
-# 01 — Data collection and storage
+---
+title: "01: Data collection and storage"
+---
 
-**Domain 1 · Task 1.1** · Skills **1.1.1–1.1.9** · Weight contribution: Domain 1 = **28%**
+# 01: Data collection and storage
 
-## What it is
+**Domain 1 (28%) · Task 1.1 · Skills 1.1.1-1.1.9**
 
-Choosing where ML/AI data lives, how it is ingested (batch vs stream), which file formats fit access patterns, and how to land features and vectors for training and GenAI retrieval.
+This is the "where does the data live and how does it get there" topic. Batch vs stream ingest, which file format fits which access pattern, and how you land features and vectors so training jobs and GenAI retrieval can actually use them.
 
-## Why it matters for MLA-C02
+C02 takes the C01 storage skills and bolts on **vector databases**, **multimodal ingest** (text, image, audio), and **Feature Store** as first-class exam skills. That matters because bad storage or format choices don't fail loudly. They show up later as latency, cost, and lousy RAG quality, and by then you've forgotten it was a storage decision.
 
-C02 expands C01 storage skills with **vector databases**, **multimodal ingest** (text/image/audio), and **Feature Store** as first-class exam skills. Wrong storage or format choices show up as latency, cost, and RAG quality failures.
+**My rule of thumb: S3 is the landing zone, Parquet is the format, and everything else needs a reason.**
 
-## Exam-relevant skills map
+## What to know
+
+### Skills map
 
 | Skill | What to be able to do |
 |---|---|
@@ -24,7 +28,7 @@ C02 expands C01 storage skills with **vector databases**, **multimodal ingest** 
 | 1.1.8 | Ingest diverse modalities for AI/ML |
 | 1.1.9 | Ingest into SageMaker Feature Store |
 
-## Storage decision matrix
+### Storage decision matrix
 
 | Store | Best for | ML/AI note |
 |---|---|---|
@@ -36,7 +40,7 @@ C02 expands C01 storage skills with **vector databases**, **multimodal ingest** 
 | **OpenSearch** | Full-text + **k-NN / vector** retrieval | Common Bedrock Knowledge Base backend |
 | **S3 (vectors)** | Managed vector index patterns for Bedrock KB | Watch metadata size limits with chunk context |
 
-## Formats
+### Formats
 
 | Format | When to use |
 |---|---|
@@ -45,42 +49,46 @@ C02 expands C01 storage skills with **vector databases**, **multimodal ingest** 
 | **JSON / JSONL** | Semi-structured APIs, LLM fine-tune line records, OpenSearch ingest |
 | **CSV** | Simple tabular; avoid for huge wide datasets (no compression/schema efficiency) |
 
-## Streaming & Feature Store
+### Streaming and Feature Store
 
-- **Kinesis / MSK (Kafka) / Managed Flink**: near-real-time features into online store or lake.
-- **Feature Store**: streaming via synchronous `PutRecord`; batch via Spark connector / Processing jobs; offline store append-only Parquet on S3; online store for low-latency inference features.
-- Online vs offline: exam loves “freshest features for inference” vs “point-in-time / historical for training.”
+- **Kinesis / MSK (Kafka) / Managed Flink**: near-real-time features into the online store or the lake.
+- **Feature Store**: streaming via synchronous `PutRecord`; batch via the Spark connector or Processing jobs. The offline store is append-only Parquet on S3. The online store serves low-latency inference features.
+- The exam loves this split: **"freshest features for inference" means online. "Point-in-time / historical for training" means offline.**
 
-## Vector DB patterns (C02 hot topic)
+### Vector DB patterns (C02 hot topic)
 
-1. Embed documents → store vectors + metadata.
-2. Query embedding → ANN/k-NN retrieve top-k → RAG context.
-3. Choose OpenSearch (hybrid text+vector), RDS pgvector (SQL + vectors), or S3/Bedrock-managed vector options per latency, ops, and filter needs.
+1. Embed documents, then store vectors + metadata.
+2. Embed the query, ANN/k-NN retrieve top-k, hand that to the model as RAG context.
+3. Pick OpenSearch (hybrid text + vector), RDS pgvector (SQL + vectors), or S3/Bedrock-managed vector options based on latency, ops overhead, and filter needs.
 
-## AWS services to know
+## AWS services in play
 
-S3, EBS, EFS, RDS (pgvector), DynamoDB, OpenSearch Service, Kinesis, Managed Service for Apache Flink, MSK/Kafka, Glue, SageMaker Feature Store, Athena (query offline features).
+S3, EBS, EFS, RDS (pgvector), DynamoDB, OpenSearch Service, Kinesis, Managed Service for Apache Flink, MSK/Kafka, Glue, SageMaker Feature Store, and Athena for querying offline features.
 
-## Hands-on practice
+## Hands-on
 
-1. Land a CSV → convert to Parquet on S3; query with Athena.
-2. Create a Feature Group; batch-ingest with Spark connector; `PutRecord` a streaming update; contrast online vs offline reads.
-3. Index embeddings in OpenSearch (or Bedrock KB with OpenSearch/S3 vectors) and run a similarity query.
-4. Stream a Kinesis feed into S3 (Firehose) or a Flink transform.
+1. Land a CSV, convert it to Parquet on S3, query it with Athena. This is step one of [B4](../../build.md#b4): the blog archive goes into S3 and comes out the other side as Parquet.
+2. Create a Feature Group, batch-ingest with the Spark connector, then `PutRecord` a streaming update. Read from online and offline and feel the difference.
+3. Index embeddings in OpenSearch (or a Bedrock KB backed by OpenSearch/S3 vectors) and run a similarity query.
+4. Stream a Kinesis feed into S3 (Firehose) or through a Flink transform.
 
-## Common traps
+## Exam traps
 
-- Using CSV for large training sets when Parquet is expected.
+- Using CSV for large training sets when Parquet is the expected answer.
 - Confusing EBS (single attach) with EFS (shared NFS).
-- Expecting offline Feature Store to be low-latency serving — that’s the **online** store.
-- Ignoring vector **metadata size** limits (esp. S3 vector + rich chunk context).
-- Treating DynamoDB as a full vector DB — exam wants OpenSearch/pgvector/S3 for vectors.
+- Expecting the offline Feature Store to serve low-latency lookups. That's the **online** store.
+- Ignoring vector **metadata size** limits, especially S3 vectors with rich chunk context.
+- Treating DynamoDB as a full vector DB. The exam wants OpenSearch, pgvector, or S3 for vectors.
+
+## Exam guide mapping
+
+- **Domain 1 (28%) · Task 1.1 · Skills 1.1.1-1.1.9**: data collection and storage.
 
 ## Research links
 
-- https://docs.aws.amazon.com/sagemaker/latest/dg/feature-store.html
-- https://docs.aws.amazon.com/sagemaker/latest/dg/batch-ingestion-spark-connector-setup.html
-- https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-vector-ingestion.html
-- https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-intelligent-ingestion-s3.html
-- https://docs.aws.amazon.com/sagemaker/latest/dg/feature-store-feature-processor-data-sources-sdk.html
-- https://docs.aws.amazon.com/pdfs/aws-certification/latest/machine-learning-engineer-associate-02/machine-learning-engineer-associate-02.pdf
+- <https://docs.aws.amazon.com/sagemaker/latest/dg/feature-store.html>
+- <https://docs.aws.amazon.com/sagemaker/latest/dg/batch-ingestion-spark-connector-setup.html>
+- <https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-vector-ingestion.html>
+- <https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-intelligent-ingestion-s3.html>
+- <https://docs.aws.amazon.com/sagemaker/latest/dg/feature-store-feature-processor-data-sources-sdk.html>
+- <https://docs.aws.amazon.com/pdfs/aws-certification/latest/machine-learning-engineer-associate-02/machine-learning-engineer-associate-02.pdf>

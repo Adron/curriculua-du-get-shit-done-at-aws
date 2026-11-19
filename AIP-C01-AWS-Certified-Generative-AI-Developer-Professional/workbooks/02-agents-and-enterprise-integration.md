@@ -1,14 +1,14 @@
 ---
 layout: default
-title: "Workbook 02 — Agents and Enterprise Integration"
+title: "Workbook 02: Agents and Enterprise Integration"
 ---
 
-# Workbook 02 — Agents and Enterprise Integration
+# Workbook 02: Agents and Enterprise Integration
 
-**Domain 2 (26%)** · Topics [07](../topics/07-agentic-ai-and-tool-integrations.md)–[11](../topics/11-application-integration-patterns.md)  
+**Domain 2 (26%)** · Topics [07](../topics/07-agentic-ai-and-tool-integrations.md)-[11](../topics/11-application-integration-patterns.md)  
 **Pack:** [Workbooks home](./README.md) · [Punch list](../PUNCH-LIST.md) · [Cert README](../README.md)
 
-Extend the Policy Copilot with **tool-using agents**, deployment strategies, enterprise integration patterns, resilient FM APIs, and application-facing streaming/automation.
+Now the Policy Copilot grows hands. This workbook adds **tool-using agents**, deployment strategies, enterprise integration patterns, resilient FM APIs, and application-facing streaming and automation. It's the most fun part of the stack to build and the easiest to build badly, so the stop conditions and HITL pieces matter as much as the agent itself.
 
 ---
 
@@ -16,7 +16,7 @@ Extend the Policy Copilot with **tool-using agents**, deployment strategies, ent
 
 By the end of this workbook you can:
 
-- [ ] Distinguish **Strands Agents**, **Amazon Bedrock AgentCore**, **AWS Agent Squad**, and classic Bedrock Agents—and pick the right combination for a scenario.
+- [ ] Distinguish **Strands Agents**, **Amazon Bedrock AgentCore**, **AWS Agent Squad**, and classic Bedrock Agents, and pick the right combination for a scenario.
 - [ ] Expose tools via **MCP** (AgentCore Gateway → Lambda/OpenAPI) with authn/authz, timeouts, and max-iteration safeguards.
 - [ ] Design HITL (Step Functions wait-for-task-token / Amplify) for irreversible actions.
 - [ ] Choose deployment: Lambda on-demand, Provisioned Throughput, SageMaker hybrid, cascading models.
@@ -32,7 +32,7 @@ By the end of this workbook you can:
 | --- | --- |
 | Prior workbook | [01](./01-fm-integration-data-and-rag.md) RAG path working (or equivalent) |
 | Skills | IAM least privilege, Step Functions basics, API Gateway |
-| Time | **10–14 hours** (weeks 4–5) |
+| Time | **10-14 hours** (weeks 4-5) |
 | Artifacts | Agent with ≥2 MCP/Lambda tools + HITL stub + streaming API |
 
 ---
@@ -60,11 +60,11 @@ By the end of this workbook you can:
 
 ## 4. Concept refresh (link topics)
 
-- [ ] [07 — Agentic AI and tool integrations](../topics/07-agentic-ai-and-tool-integrations.md) — Strands, Agent Squad, MCP, HITL, memory  
-- [ ] [08 — Model deployment strategies](../topics/08-model-deployment-strategies.md) — on-demand, PT, SageMaker hybrid, cascading  
-- [ ] [09 — Enterprise integration architectures](../topics/09-enterprise-integration-architectures.md) — API/event, federation, gateway, CI/CD  
-- [ ] [10 — FM API integrations](../topics/10-fm-api-integrations.md) — sync/async, streaming, backoff, routing  
-- [ ] [11 — Application integration patterns](../topics/11-application-integration-patterns.md) — Amplify/OpenAPI, Flows, BDA, CRM  
+- [ ] [07: Agentic AI and tool integrations](../topics/07-agentic-ai-and-tool-integrations.md): Strands, Agent Squad, MCP, HITL, memory  
+- [ ] [08: Model deployment strategies](../topics/08-model-deployment-strategies.md): on-demand, PT, SageMaker hybrid, cascading  
+- [ ] [09: Enterprise integration architectures](../topics/09-enterprise-integration-architectures.md): API/event, federation, gateway, CI/CD  
+- [ ] [10: FM API integrations](../topics/10-fm-api-integrations.md): sync/async, streaming, backoff, routing  
+- [ ] [11: Application integration patterns](../topics/11-application-integration-patterns.md): Amplify/OpenAPI, Flows, BDA, CRM  
 
 **Synthesis (½ page):** Draw the path: User → API → AgentCore Runtime (Strands) → Gateway MCP tools → KB retrieve + order API → Guardrails → Observability. Label IAM boundaries.
 
@@ -74,7 +74,7 @@ By the end of this workbook you can:
 
 ### A. Matching
 
-Match component → role:
+Match each component to its role. These four get confused constantly, on the exam and in real design reviews:
 
 | Component | Role |
 | --- | --- |
@@ -85,14 +85,14 @@ Match component → role:
 
 ### B. Short answer
 
-5. Lambda vs ECS for MCP tool servers—when each?  
+5. Lambda vs ECS for MCP tool servers: when each?  
 6. Three safeguards every production agent needs.  
 7. Why Provisioned Throughput for custom Bedrock models?  
 8. Cascading model pattern: what is the success criterion to escalate?  
 9. EventBridge’s role in a GenAI enterprise design?  
 10. What should intelligent routing consider besides “largest model”?  
 11. Why tag/correlation IDs with X-Ray for FM calls?  
-12. Prompt Flows vs free-form agent—when prefer Flows?
+12. Prompt Flows vs free-form agent: when prefer Flows?
 
 ### C. True / false
 
@@ -104,7 +104,7 @@ Match component → role:
 
 ## 6. Worked → guided → independent
 
-### Worked example — Ticket triage agent
+### Worked example: Ticket triage agent
 
 **Goal:** Classify ticket, retrieve policy, optionally look up order status; escalate refunds to a human.
 
@@ -132,6 +132,8 @@ User → API Gateway → AgentCore Runtime (Strands)
 
 ### Independent practice
 
+Fully on your own now:
+
 - [ ] Deploy agent to AgentCore Runtime (or document gaps if unavailable; use ECS/Lambda stand-in).  
 - [ ] AgentCore Gateway OpenAPI target for a mock CRM.  
 - [ ] Streaming ConverseStream (or agent stream) through API Gateway WebSocket/HTTP.  
@@ -142,25 +144,25 @@ User → API Gateway → AgentCore Runtime (Strands)
 
 ## 7. Architecture defense scenarios
 
-### Scenario D2-1 — Confused deputy tools
+### Scenario D2-1: Confused deputy tools
 
 An agent can call any Lambda in the account via a wildcard IAM role “for speed.”
 
 Defend a redesign covering Gateway, IAM, and tenancy.
 
-### Scenario D2-2 — GPU forever
+### Scenario D2-2: GPU forever
 
 Team wants always-on SageMaker GPU endpoints for a spiky internal chatbot.
 
 Defend Bedrock on-demand vs PT vs SageMaker; include cost and cold-start reliability.
 
-### Scenario D2-3 — Multi-agent chaos
+### Scenario D2-3: Multi-agent chaos
 
 Product asks for five specialized agents chatting freely with shared memory and no router.
 
 Defend Agent Squad vs Strands multi-agent patterns vs single agent + tools; reliability and cost.
 
-### Scenario D2-4 — Sync in the critical path
+### Scenario D2-4: Sync in the critical path
 
 A UI waits 90s for a 200-page contract summary via sync Lambda → Converse.
 
@@ -170,22 +172,26 @@ Defend sync vs async (Step Functions / batch) vs streaming progressive UX.
 
 ## 8. Hands-on production-shaped labs
 
-### Lab A — Strands + MCP + HITL (topic 07)
+### Lab A: Strands + MCP + HITL (topic 07)
+
+This is [B10](../../build.md#b10). For Ask Composite Code the tools are search posts, tag a draft via the [B5](../../build.md#b5) endpoint, and look up GitHub repos; anything that writes goes through HITL.
 
 - [ ] Define tools as MCP or function tools with JSON schemas  
 - [ ] AgentCore Gateway (or API Gateway) auth for tool ingress  
 - [ ] Memory: short-term session vs long-term (AgentCore Memory / DynamoDB)  
 - [ ] HITL path for delete/refund/send-email  
-- [ ] Red-team: prompt that tries to force `propose_refund` without approval—must fail
+- [ ] Red-team: prompt that tries to force `propose_refund` without approval; it must fail
 
-### Lab B — Deployment + enterprise edge (topics 08–09)
+### Lab B: Deployment + enterprise edge (topics 08-09)
 
 - [ ] On-demand path for chat; optional PT only if you measure steady MU utilization  
 - [ ] GenAI gateway Lambda: authZ, model allowlist, guardrail ARN injection  
 - [ ] EventBridge rule: `doc.ingested` → reindex / notify agent memory refresh  
 - [ ] CI/CD: deploy prompts/agents only after eval job succeeds  
 
-### Lab C — FM API + app patterns (topics 10–11)
+### Lab C: FM API + app patterns (topics 10-11)
+
+The streaming and backoff pieces finish off the [B9](../../build.md#b9) API.
 
 - [ ] ConverseStream to a simple web client; measure TTFT  
 - [ ] Exponential backoff on `ThrottlingException`; jitter; fallback model  
@@ -213,7 +219,7 @@ Defend sync vs async (Step Functions / batch) vs streaming progressive UX.
 
 1. Where does *your* agent’s agency need to stop?  
 2. Which tool is highest blast radius, and how is it constrained?  
-3. Would you bet the exam question on Strands+AgentCore or Step Functions ReAct for regulated workflows—why?
+3. Would you bet the exam question on Strands+AgentCore or Step Functions ReAct for regulated workflows: why?
 
 ---
 
@@ -226,7 +232,7 @@ Defend sync vs async (Step Functions / batch) vs streaming progressive UX.
 - [ ] Closed-book ≥80%  
 - [ ] Agent trajectory demo (happy path + HITL path + throttle path)  
 
-**Next:** [Workbook 03 — Safety, security, and governance](./03-safety-security-governance.md)
+**Next:** [Workbook 03: Safety, security, and governance](./03-safety-security-governance.md)
 
 ---
 
@@ -249,16 +255,16 @@ Defend sync vs async (Step Functions / batch) vs streaming progressive UX.
 
 ### True / false
 
-13. **False** — Agent Squad is OSS routing; AgentCore is the managed platform.  
-14. **False** — prompt-attack filters do not evaluate tool results/tool specs the same way; tag user inputs; defense-in-depth.  
+13. **False**: Agent Squad is OSS routing; AgentCore is the managed platform.  
+14. **False**: prompt-attack filters do not evaluate tool results/tool specs the same way; tag user inputs; defense-in-depth.  
 15. **True** for long jobs; keep user-facing paths streaming/sync with strict timeouts.
 
 ### Architecture defense (rubric)
 
 **D2-1:** Per-tool roles; Gateway with authN/Z; resource ARNs not `*`; tenant claims in context; deny by default.  
-**D2-2:** Prefer Bedrock on-demand; PT if steady; SageMaker for custom containers/LoRA ownership—not default for spiky chat.  
+**D2-2:** Prefer Bedrock on-demand; PT if steady; SageMaker for custom containers/LoRA ownership, not the default for spiky chat.  
 **D2-3:** Start single agent + tools; add Agent Squad router for clear domains; Strands graph/workflow with shared context only with budgets and stop conditions.  
-**D2-4:** Async job + notify for 90s work; or chunked map-reduce; streaming for partial progress—not sync API Gateway 29s trap.
+**D2-4:** Async job + notify for 90s work; or chunked map-reduce; streaming for partial progress; not the sync API Gateway 29s trap.
 
 ### Lab self-grade
 

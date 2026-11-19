@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  {% seo %}
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,600;0,800;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ '/assets/css/hacker.css' | relative_url }}">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><rect width='16' height='16' fill='%230a0e0a'/><text x='1' y='12' font-family='monospace' font-size='11' fill='%2339ff7a'>&gt;_</text></svg>">
+</head>
+{%- assign parts = page.dir | split: '/' -%}
+{%- assign section = parts[1] -%}
+{%- assign cert = section | slice: 0, 7 | downcase -%}
+{%- assign sub = parts[2] -%}
+{%- assign is_home = false -%}
+{%- if page.url == '/' -%}{%- assign is_home = true -%}{%- endif -%}
+{%- assign cwd = '~' -%}
+{%- if section and section != '' -%}
+  {%- if cert contains '-c0' -%}{%- assign cwd = cwd | append: '/' | append: cert -%}{%- else -%}{%- assign cwd = cwd | append: '/' | append: section -%}{%- endif -%}
+  {%- if sub and sub != '' -%}{%- assign cwd = cwd | append: '/' | append: sub -%}{%- endif -%}
+{%- endif -%}
+<body class="{% if is_home %}home{% endif %}{% if sub == 'topics' %} topic{% endif %}{% if sub == 'workbooks' %} workbook{% endif %}">
+<a class="skip" href="#content">skip to content</a>
+<div class="crt" aria-hidden="true"></div>
+
+<header class="term-bar">
+  <div class="term-bar__inner">
+    <span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
+    <span class="term-title">adron@curriculum-2027: {{ cwd }}</span>
+  </div>
+  <nav class="nav" aria-label="Main">
+    <span class="nav__prompt" aria-hidden="true">$ ls</span>
+    <a href="{{ '/' | relative_url }}" {% if is_home %}aria-current="page"{% endif %}>~</a>
+    <a href="{{ '/AIF-C01-AWS-Certified-AI-Practitioner/' | relative_url }}" {% if cert == 'aif-c01' %}aria-current="page"{% endif %}>aif-c01/</a>
+    <a href="{{ '/MLA-C02-AWS-Certified-Machine-Learning-Engineer-Associate/' | relative_url }}" {% if cert == 'mla-c02' %}aria-current="page"{% endif %}>mla-c02/</a>
+    <a href="{{ '/AIP-C01-AWS-Certified-Generative-AI-Developer-Professional/' | relative_url }}" {% if cert == 'aip-c01' %}aria-current="page"{% endif %}>aip-c01/</a>
+    <a href="{{ '/build.html' | relative_url }}" {% if page.name == 'build.md' %}aria-current="page"{% endif %}>build.md</a>
+    <a href="https://github.com/{{ site.repository }}">src&#8599;</a>
+  </nav>
+</header>
+
+<main id="content" class="wrap">
+  <p class="prompt" aria-hidden="true"><span class="u">adron@c27</span>:<span class="p">{{ cwd }}</span>$ <span class="cmd">{% if is_home %}./start.sh{% else %}cat {{ page.name }}{% endif %}</span><span class="cursor"></span></p>
+
+  {%- if is_home -%}
+<pre class="banner" aria-label="curriculum-2027">
+ ┌─────────────────────────────────────────────────┐
+ │  ▄▀▀ █ █ █▀▄ █▀▄ █ ▄▀▀ █ █ █   █ █ █▄ ▄█        │
+ │  ▀▄▄ ▀▄█ █▀▄ █▀▄ █ ▀▄▄ ▀▄█ █▄▄ ▀▄█ █ ▀ █  2027  │
+ │  aws ai certs // aif-c01 -> mla-c02 -> aip-c01  │
+ └─────────────────────────────────────────────────┘
+</pre>
+  {%- endif -%}
+
+  <article class="doc">
+    {{ content }}
+  </article>
+
+  {%- if sub == 'topics' or sub == 'workbooks' -%}
+    {%- assign siblings = site.pages | where: "dir", page.dir | sort: "name" -%}
+    {%- assign ordered = "" | split: "" -%}
+    {%- for p in siblings -%}{%- if p.name != 'README.md' and p.name != 'index.md' -%}{%- assign ordered = ordered | push: p -%}{%- endif -%}{%- endfor -%}
+    {%- assign prev = nil -%}{%- assign next = nil -%}
+    {%- for p in ordered -%}
+      {%- if p.url == page.url -%}
+        {%- assign i0 = forloop.index0 | minus: 1 -%}
+        {%- assign i1 = forloop.index0 | plus: 1 -%}
+        {%- if forloop.first == false -%}{%- assign prev = ordered[i0] -%}{%- endif -%}
+        {%- if forloop.last == false -%}{%- assign next = ordered[i1] -%}{%- endif -%}
+      {%- endif -%}
+    {%- endfor -%}
+    {%- if page.name != 'README.md' -%}
+  <nav class="pager" aria-label="Pager">
+    {%- if sub == 'topics' -%}
+    <label class="done-toggle"><input type="checkbox" data-done-self> mark this topic done</label>
+    {%- endif -%}
+    <div class="pager__row">
+      {%- if prev -%}<a class="pager__prev" href="{{ prev.url | relative_url }}">&lt;&lt; {{ prev.title }}</a>{%- else -%}<span></span>{%- endif -%}
+      {%- assign up = '/' | append: section | append: '/' -%}
+      <a class="pager__up" href="{{ up | relative_url }}{% if sub == 'topics' %}PUNCH-LIST.html{% else %}workbooks/{% endif %}">{% if sub == 'topics' %}[ punch list ]{% else %}[ workbooks ]{% endif %}</a>
+      {%- if next -%}<a class="pager__next" href="{{ next.url | relative_url }}">{{ next.title }} &gt;&gt;</a>{%- else -%}<span></span>{%- endif -%}
+    </div>
+  </nav>
+    {%- endif -%}
+  {%- endif -%}
+</main>
+
+<footer class="foot wrap">
+  <p><span class="dim">[ EOF ]</span> &middot; built by <a href="https://compositecode.blog">Adron Hall</a> &middot; <a href="https://github.com/{{ site.repository }}">{{ site.repository }}</a>{% if page.path %} &middot; <a href="https://github.com/{{ site.repository }}/edit/main/{{ page.path }}">edit this page</a>{% endif %}</p>
+  <p class="dim small">progress checkboxes live in this browser's localStorage. nothing leaves your machine.</p>
+</footer>
+
+<script>window.C27 = { base: "{{ site.baseurl }}" };</script>
+<script src="{{ '/assets/js/term.js' | relative_url }}" defer></script>
+</body>
+</html>

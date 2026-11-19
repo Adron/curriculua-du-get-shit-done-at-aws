@@ -1,16 +1,20 @@
-# 05 — Train, fine-tune, and customize models
+---
+title: "05: Train, fine-tune, and customize models"
+---
 
-**Domain 2 · Task 2.2** · Skills **2.2.1–2.2.9** · Domain weight **24%**
+# 05: Train, fine-tune, and customize models
 
-## What it is
+**Domain 2 (24%) · Task 2.2 · Skills 2.2.1-2.2.9**
 
-Executing training and customization: SageMaker built-ins and script mode, HPO/AMT, distributed training, regularization against over/underfit and catastrophic forgetting, prompt customization, and retrieval/embedding optimization.
+This is the actual training part. SageMaker built-in algorithms and script mode, hyperparameter tuning with AMT, distributed training, fighting overfitting, underfitting, and catastrophic forgetting, prompt customization, and tuning retrieval and embeddings.
 
-## Why it matters for MLA-C02
+It's still the core "how do you train" domain, but C02 adds **prompt engineering / fine-tuning customization** and **retrieval + embedding optimization** for GenAI quality.
 
-Still the core “how do you train” domain, with C02 adding **prompt engineering / fine-tuning customization** and **retrieval + embedding optimization** for GenAI quality.
+**Get a single-node job correct before you scale anything.** I've watched plenty of people throw a cluster at a training script that was broken on one box. It's still broken. It's just broken faster and on a bigger bill.
 
-## Exam-relevant skills map
+## What to know
+
+### Skills map
 
 | Skill | Focus |
 |---|---|
@@ -24,7 +28,7 @@ Still the core “how do you train” domain, with C02 adding **prompt engineeri
 | 2.2.8 | Prompt engineering + fine-tuning |
 | 2.2.9 | Optimize retrieval & embedding models |
 
-## SageMaker training modes
+### SageMaker training modes
 
 | Mode | When |
 |---|---|
@@ -32,20 +36,20 @@ Still the core “how do you train” domain, with C02 adding **prompt engineeri
 | **Script mode** | Your PyTorch/TF/HF/SKLearn training script in managed containers |
 | **JumpStart / Bedrock customize** | Start from pretrained FM; fine-tune or adapters per service capabilities |
 
-Script mode: bring `train.py`, set hyperparameters, input channels on S3, output `model.tar.gz`.
+Script mode: bring `train.py`, set hyperparameters, point input channels at S3, get `model.tar.gz` out.
 
-## HPO / AMT
+### HPO / AMT
 
-SageMaker Automatic Model Tuning launches many training jobs (random, Bayesian, Hyperband-style strategies). Use **early stopping** for non-improving trials. Objective metric must match business goal (AUC vs loss vs custom).
+SageMaker Automatic Model Tuning launches many training jobs (random, Bayesian, Hyperband-style strategies). Use **early stopping** for trials that aren't improving. The objective metric has to match the business goal (AUC vs loss vs custom).
 
-## Distributed training
+### Distributed training
 
-- **Data parallelism**: shard data across workers (large datasets).
-- **Model parallelism**: shard model for huge nets.
-- Watch OOM, networking, and that jobs are stable before scaling out.
-- Spot + **checkpointing** for cost (C01/C02 cost theme).
+- **Data parallelism**: shard the data across workers (large datasets).
+- **Model parallelism**: shard the model itself (huge nets).
+- Watch for OOM and networking issues, and make sure jobs are stable before scaling out.
+- Spot + **checkpointing** for cost (a C01/C02 cost theme).
 
-## Regularization & GenAI forgetting
+### Regularization and GenAI forgetting
 
 | Problem | Signals | Mitigations |
 |---|---|---|
@@ -53,48 +57,52 @@ SageMaker Automatic Model Tuning launches many training jobs (random, Bayesian, 
 | Underfitting | Both metrics poor | Capacity, features, longer train, less regularization |
 | Catastrophic forgetting | Fine-tune kills prior skills | Lower LR, fewer epochs, mix replay data, LoRA/adapters, eval old tasks |
 
-## Prompt engineering & customization
+### Prompt engineering and customization
 
-- System + few-shot + tool schemas; version prompts (Prompt Management — see topic 06/09).
-- Fine-tune when prompts can’t lock format/domain language.
-- Combine: RAG for facts + light fine-tune for style.
+- System prompt + few-shot + tool schemas. Version your prompts (Prompt Management, see topics 06 and 09).
+- Fine-tune when prompts can't lock down the format or domain language.
+- Combine them: RAG for facts, a light fine-tune for style.
 
-## Retrieval & embedding optimization (2.2.9)
+### Retrieval and embedding optimization (2.2.9)
 
 - Embedding model choice (dimension, multilingual, multimodal)
-- Chunk size/overlap (topic 02)
+- Chunk size and overlap (topic 02)
 - Top-k, score thresholds, hybrid search, **reranking**
 - Query rewriting / HyDE-style expansions where appropriate
-- Measure retrieval hit-rate separately from generation quality
+- **Measure retrieval hit rate separately from generation quality.**
 
-## Hyperparameters to recite
+### Hyperparameters to recite
 
-Epochs / max steps, batch size (memory vs stability), learning rate, warmup, weight decay — and how they interact with distributed world size (effective batch).
+Epochs / max steps, batch size (memory vs stability), learning rate, warmup, weight decay, and how they interact with distributed world size (effective batch).
 
-## AWS services
+## AWS services in play
 
-SageMaker Training, AMT, distributed training libraries, Debugger (convergence), Bedrock model customization, JumpStart, Feature Store (feature inputs).
+SageMaker Training, AMT, distributed training libraries, Debugger (convergence), Bedrock model customization, JumpStart, and Feature Store (feature inputs).
 
-## Hands-on practice
+## Hands-on
 
-1. Script-mode SKLearn or PyTorch job on S3 data; log metrics.
-2. AMT job with early stopping; compare best trial vs baseline.
-3. Fine-tune or continued customize a small Bedrock/JumpStart model; eval before/after on held-out + “old skill” prompts.
-4. A/B chunk sizes and embedding models; measure retrieval recall@k.
+1. Script-mode SKLearn or PyTorch job on S3 data, logging metrics. This is [B5](../../build.md#b5): post text in, categories out.
+2. AMT job with early stopping. Compare the best trial against your baseline.
+3. Fine-tune or continue-customize a small Bedrock/JumpStart model. Eval before and after on held-out data **and** on "old skill" prompts.
+4. A/B chunk sizes and embedding models and measure retrieval recall@k. That's the whole point of [B6](../../build.md#b6).
 
-## Common traps
+## Exam traps
 
-- Tuning batch size without adjusting LR / steps.
-- Declaring victory on train loss only.
-- Fine-tuning so hard the base model forgets general instruction following.
-- Optimizing the generator while retrieval is the real failure mode.
-- Distributed training before single-node job is correct.
+- Tuning batch size without adjusting learning rate or steps.
+- Declaring victory on training loss alone.
+- Fine-tuning so hard the base model forgets how to follow general instructions.
+- Optimizing the generator when retrieval is the real failure.
+- Going distributed before the single-node job is correct.
+
+## Exam guide mapping
+
+- **Domain 2 (24%) · Task 2.2 · Skills 2.2.1-2.2.9**: train, fine-tune, and customize models.
 
 ## Research links
 
-- https://docs.aws.amazon.com/sagemaker/latest/dg/train-model.html
-- https://docs.aws.amazon.com/sagemaker/latest/dg/distributed-training-options.html
-- https://docs.aws.amazon.com/sagemaker/latest/dg/automatic-model-tuning-how-it-works.html
-- https://docs.aws.amazon.com/bedrock/latest/userguide/model-customization.html
-- https://docs.aws.amazon.com/bedrock/latest/userguide/kb-chunking.html
-- https://docs.aws.amazon.com/pdfs/aws-certification/latest/machine-learning-engineer-associate-02/machine-learning-engineer-associate-02.pdf
+- <https://docs.aws.amazon.com/sagemaker/latest/dg/train-model.html>
+- <https://docs.aws.amazon.com/sagemaker/latest/dg/distributed-training-options.html>
+- <https://docs.aws.amazon.com/sagemaker/latest/dg/automatic-model-tuning-how-it-works.html>
+- <https://docs.aws.amazon.com/bedrock/latest/userguide/model-customization.html>
+- <https://docs.aws.amazon.com/bedrock/latest/userguide/kb-chunking.html>
+- <https://docs.aws.amazon.com/pdfs/aws-certification/latest/machine-learning-engineer-associate-02/machine-learning-engineer-associate-02.pdf>

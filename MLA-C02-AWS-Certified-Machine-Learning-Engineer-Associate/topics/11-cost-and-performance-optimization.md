@@ -1,16 +1,20 @@
-# 11 — Cost and performance optimization
+---
+title: "11: Cost and performance optimization"
+---
 
-**Domain 4 · Task 4.2** · Skills **4.2.1–4.2.10** · Domain weight **24%**
+# 11: Cost and performance optimization
 
-## What it is
+**Domain 4 (24%) · Task 4.2 · Skills 4.2.1-4.2.10**
 
-Right-sizing inference/training spend and performance: instance families, AgentCore Observability, X-Ray, dashboards, capacity, purchasing options, FM inference cost, agent resource use, and AI-specific cost patterns (tokens, embeddings, vector DB).
+Right-sizing spend and performance for training and inference: instance families, AgentCore Observability, X-Ray, dashboards, capacity, purchasing options, FM inference cost, agent resource use, and the AI-specific cost patterns (tokens, embeddings, vector DBs).
 
-## Why it matters for MLA-C02
+C02 adds **FM inference cost**, **agent resource consumption**, **token/embedding/vector DB cost patterns**, and calls out **AgentCore Observability** right next to CloudWatch and X-Ray.
 
-C02 adds **FM inference cost**, **agent resource consumption**, **token/embedding/vector DB cost patterns**, and calls out **AgentCore Observability** beside CloudWatch/X-Ray.
+**With GenAI, the bill hides in the tokens, not the instances.** You can shave 20% off an instance type and still lose because the RAG context doubled. Watch $/request, not just $/hour.
 
-## Exam-relevant skills map
+## What to know
+
+### Skills map
 
 | Skill | Focus |
 |---|---|
@@ -25,7 +29,7 @@ C02 adds **FM inference cost**, **agent resource consumption**, **token/embeddin
 | 4.2.9 | FM usage optimization |
 | 4.2.10 | Token, embedding, vector DB cost patterns |
 
-## Instance family intuition
+### Instance family intuition
 
 | Family cue | Workload |
 |---|---|
@@ -34,9 +38,9 @@ C02 adds **FM inference cost**, **agent resource consumption**, **token/embeddin
 | Inferentia / Trainium (where applicable) | Cost-optimized DL infer/train |
 | Memory-optimized | Large feature joins, big batch |
 
-Match framework, batch size, and concurrency — oversized GPUs idle = wasted $.
+Match the framework, batch size, and concurrency. An oversized GPU sitting idle is just money on fire.
 
-## Observability for optimization
+### Observability for optimization
 
 | Tool | Role |
 |---|---|
@@ -45,9 +49,9 @@ Match framework, batch size, and concurrency — oversized GPUs idle = wasted $.
 | **X-Ray** | Distributed trace across API → Lambda → SageMaker/Bedrock |
 | **Compute Optimizer / Trusted Advisor** | Rightsizing hints (in-scope management tools) |
 
-Dashboards should show **$/request**, latency SLO, error rate, GPU util, token burn.
+Dashboards should show **$/request**, latency SLO, error rate, GPU util, and token burn.
 
-## Purchasing & capacity
+### Purchasing and capacity
 
 | Option | When |
 |---|---|
@@ -58,9 +62,9 @@ Dashboards should show **$/request**, latency SLO, error rate, GPU util, token b
 | Bedrock provisioned throughput | Sustained FM TPS |
 | Autoscaling + scale-to-zero patterns | Diurnal traffic |
 
-Budgets + Cost Explorer + Billing alarms for quotas (4.2.5).
+Budgets, Cost Explorer, and billing alarms cover quotas (4.2.5).
 
-## FM & GenAI cost patterns (C02)
+### FM and GenAI cost patterns (C02)
 
 | Lever | Optimization |
 |---|---|
@@ -68,38 +72,44 @@ Budgets + Cost Explorer + Billing alarms for quotas (4.2.5).
 | **Output length** | Max tokens caps; stop sequences |
 | **Embeddings** | Cache doc embeddings; re-embed only deltas |
 | **Vector DB** | Right dimension/index; TTL/lifecycle cold vectors; avoid oversharding |
-| **RAG** | Lower top-k after rerank; don’t stuff unused context |
+| **RAG** | Lower top-k after rerank; don't stuff unused context |
 | **Agents** | Cap max tool loops; cheaper model for routing, stronger for final answer |
 
-## Agent resource consumption (4.2.8)
+### Agent resource consumption (4.2.8)
 
-Monitor sessions × average steps × tokens/step × tool invocations. A “cheap” FM becomes expensive with 20 tool loops. Set budgets per agent and alert on outliers.
+The math: sessions × average steps × tokens per step × tool invocations. A "cheap" FM gets expensive fast with 20 tool loops. Set budgets per agent and alert on outliers.
 
-## AWS services
+## AWS services in play
 
-CloudWatch, X-Ray, Bedrock AgentCore Observability, Cost Explorer, Budgets, Compute Optimizer, Auto Scaling, SageMaker Inference recommender concepts, Bedrock pricing dimensions (input/output tokens, embeddings, provisioned).
+CloudWatch, X-Ray, Bedrock AgentCore Observability, Cost Explorer, Budgets, Compute Optimizer, Auto Scaling, SageMaker Inference Recommender concepts, and Bedrock pricing dimensions (input/output tokens, embeddings, provisioned).
 
-## Hands-on practice
+## Hands-on
 
-1. Compare two instance types for same endpoint TPS/latency; pick Pareto winner.
-2. Build a CloudWatch dashboard: p99, Invocations, GPU util, estimated cost metric.
-3. Trace a request with X-Ray across API Gateway → Lambda → Bedrock.
-4. Measure token cost before/after prompt compression + top-k reduction.
-5. Enable AgentCore observability; chart tokens per successful task.
+1. Compare two instance types at the same endpoint TPS/latency and pick the Pareto winner.
+2. Build a CloudWatch dashboard: p99, Invocations, GPU util, an estimated cost metric. Put one on the [B8](../../build.md#b8) stack.
+3. Trace a request with X-Ray across API Gateway, Lambda, and Bedrock.
+4. Measure token cost before and after prompt compression + top-k reduction.
+5. Enable AgentCore observability and chart tokens per successful task.
 
-## Common traps
+Bonus for the build: the archive only changes when I publish a post, so [B4](../../build.md#b4)/[B6](../../build.md#b6) should embed the delta, never the whole corpus. Easy money.
 
-- Optimizing instance $ while RAG context doubles token spend.
+## Exam traps
+
+- Optimizing instance cost while RAG context doubles the token spend.
 - Provisioned throughput for spiky demos.
-- No max-tokens on agents (runaway loops).
-- Re-embedding entire corpus nightly.
+- No max-tokens limit on agents (runaway loops).
+- Re-embedding the entire corpus nightly.
 - Dashboards without alarms or owners.
+
+## Exam guide mapping
+
+- **Domain 4 (24%) · Task 4.2 · Skills 4.2.1-4.2.10**: cost and performance optimization.
 
 ## Research links
 
-- https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/observability.html
-- https://docs.aws.amazon.com/xray/latest/devguide/aws-xray.html
-- https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/WhatIsCloudWatch.html
-- https://docs.aws.amazon.com/cost-management/latest/userguide/ce-what-is.html
-- https://docs.aws.amazon.com/sagemaker/latest/dg/deploy-model.html
-- https://aws.amazon.com/bedrock/pricing/
+- <https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/observability.html>
+- <https://docs.aws.amazon.com/xray/latest/devguide/aws-xray.html>
+- <https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/WhatIsCloudWatch.html>
+- <https://docs.aws.amazon.com/cost-management/latest/userguide/ce-what-is.html>
+- <https://docs.aws.amazon.com/sagemaker/latest/dg/deploy-model.html>
+- <https://aws.amazon.com/bedrock/pricing/>

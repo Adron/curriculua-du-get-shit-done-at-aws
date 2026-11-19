@@ -1,31 +1,35 @@
 ---
 layout: default
-title: "Workbook 04 — Responsible AI, Security, Governance"
+title: "Workbook 04: Responsible AI, Security & Governance"
 ---
 
-# Workbook 04 — Responsible AI, Security & Governance
+# Workbook 04: Responsible AI, Security & Governance
 
 **Covers:** [topics/11](../topics/11-responsible-ai-principles-and-practices.md) · [12](../topics/12-transparency-and-explainability.md) · [13](../topics/13-securing-ai-systems.md) · [14](../topics/14-ai-governance-and-compliance.md)  
 **Domains:** 4 (14%) + 5 (14%)  
-**Prerequisites:** Workbooks [02](./02-genai-fundamentals.md)–[03](./03-foundation-model-applications.md) (Guardrails/RAG/agents vocabulary).  
-**Estimated time:** 3–4 hours  
+**Prerequisites:** Workbooks [02](./02-genai-fundamentals.md)-[03](./03-foundation-model-applications.md) (Guardrails/RAG/agents vocabulary).  
+**Estimated time:** 3-4 hours  
 **Nav:** [Workbooks home](./README.md) · [Punch list](../PUNCH-LIST.md)
+
+Two domains in one workbook, 28% of the exam combined. Responsible AI, security, and governance read like the "eat your vegetables" part of the curriculum, but the questions are very learnable: know the Guardrails filter types, know which governance service answers which audit question, and know the five scopes of the scoping matrix. Do that and these are some of the most reliable points on the test.
 
 ---
 
 ## Learning objectives
 
-By the end of this workbook you can:
+By the end of this one, I want to be able to:
 
 1. Map responsible-AI dimensions (fairness, bias, safety, veracity, etc.) to concrete controls, especially **Bedrock Guardrails** filter types.
 2. Choose transparency tools: **Model Cards**, Clarify, Bedrock evaluations, citations; discuss safety vs transparency tradeoffs and human-centered design.
 3. Apply security controls: IAM least privilege, encryption/KMS, Macie, PrivateLink, shared responsibility, AgentCore Identity; mitigate prompt injection, leakage, toxicity; ground hallucinations.
-4. Select governance services (Config, Inspector, Artifact, CloudTrail, Trusted Advisor) and classify use cases on the **Generative AI Security Scoping Matrix** (Scopes 1–5).
+4. Select governance services (Config, Inspector, Artifact, CloudTrail, Trusted Advisor) and classify use cases on the **Generative AI Security Scoping Matrix** (Scopes 1-5).
 5. Reason about residency, retention, logging, and why erasable PII should not be baked into fine-tunes.
 
 ---
 
 ## Activate prior knowledge
+
+Pull from your own experience first:
 
 1. Where have you seen biased or unsafe model outputs in the wild? What control would you want?
 2. In AWS shared responsibility, who owns **your** prompts, tool IAM, and S3 training data?
@@ -38,7 +42,7 @@ By the end of this workbook you can:
 | Idea | One-liner | Link |
 |---|---|---|
 | Guardrails | Content, denied topics, word, PII, prompt attack, grounding, Automated Reasoning | [11](../topics/11-responsible-ai-principles-and-practices.md) |
-| Model Cards | Intended use, risk, metrics, caveats — audit doc | [12](../topics/12-transparency-and-explainability.md) |
+| Model Cards | Intended use, risk, metrics, caveats; the audit doc | [12](../topics/12-transparency-and-explainability.md) |
 | Opaque FMs | Compensate with process transparency (cards, cites, HITL) | [12](../topics/12-transparency-and-explainability.md) |
 | Secure AI | IAM, encrypt, Macie, PrivateLink, Guardrails, AgentCore Identity | [13](../topics/13-securing-ai-systems.md) |
 | Prompt injection | Malicious instructions in user or retrieved content | [13](../topics/13-securing-ai-systems.md) |
@@ -48,6 +52,8 @@ By the end of this workbook you can:
 ---
 
 ## Retrieval practice (closed-book)
+
+All fifteen on paper before the answer key.
 
 **Responsible AI & transparency**
 
@@ -63,12 +69,12 @@ By the end of this workbook you can:
 7. Why can’t you rely on the LLM alone as a row-level ACL?
 8. Macie role for AI data lakes?
 9. PrivateLink role for Bedrock access patterns?
-10. Where should tool credentials live — prompts or Secrets Manager?
+10. Where should tool credentials live: prompts or Secrets Manager?
 11. Guardrails on RetrieveAndGenerate apply to which of: user input, model output, every retrieved chunk?
 
 **Governance**
 
-12. CloudTrail vs Artifact vs Config vs Inspector — one job each.
+12. CloudTrail vs Artifact vs Config vs Inspector: one job each.
 13. Scope 1 vs Scope 3 vs Scope 5 examples.
 14. Why is fine-tuning on PII risky under erasure/retention policies?
 15. Name two data governance themes (lifecycle, residency, …).
@@ -77,7 +83,7 @@ By the end of this workbook you can:
 
 ## Worked example → guided → independent
 
-### Worked example — hiring assistant
+### Worked example: hiring assistant
 
 **App:** Internal chatbot helps screen resumes. Uses Bedrock + RAG over job descriptions. HR worries about bias and leakage of candidate PII into logs.
 
@@ -110,8 +116,8 @@ By the end of this workbook you can:
 ### Independent practice
 
 - [ ] **I1.** Draft a one-page Model Card outline for a fictional RAG bot (purpose, not-intended uses, risk rating, metrics, caveats).
-- [ ] **I2.** Threat-model a Bedrock agent with three tools: list prompt injection path, data leakage path, over-privileged tool path — and one control each.
-- [ ] **I3.** Classify five real or invented GenAI uses into Scopes 1–5.
+- [ ] **I2.** Threat-model a Bedrock agent with three tools: list the prompt injection path, data leakage path, and over-privileged tool path, plus one control each.
+- [ ] **I3.** Classify five real or invented GenAI uses into Scopes 1-5.
 - [ ] **I4.** Write a Guardrails config checklist for a consumer-facing chatbot (filters you would enable and why).
 
 ---
@@ -155,22 +161,24 @@ By the end of this workbook you can:
 
 **S8.** “Right to be forgotten” for customers whose data was fine-tuned into weights.  
 - [ ] A) Easy delete one row from weights  
-- [ ] B) Painful retrain/delete strategy — avoid putting erasable PII in weights; prefer RAG  
+- [ ] B) Painful retrain/delete strategy; avoid putting erasable PII in weights; prefer RAG  
 - [ ] C) Ignore governance  
 
 ---
 
 ## Hands-on lab
 
-### Option A — Console
+### Option A: Console
 
-- [ ] **L1.** Bedrock Guardrails: create/test a guardrail in the test window — enable a content filter and a sensitive info filter. ([Guardrails](https://docs.aws.amazon.com/bedrock/latest/userguide/guardrails.html))
+L1 and L2 are the core of [B3](../../build.md#b3). If you built the [B2](../../build.md#b2) Knowledge Base, put this guardrail in front of it and then try to break it with prompt injection. Way more fun than the sample prompts.
+
+- [ ] **L1.** Bedrock Guardrails: create/test a guardrail in the test window. Enable a content filter and a sensitive info filter. ([Guardrails](https://docs.aws.amazon.com/bedrock/latest/userguide/guardrails.html))
 - [ ] **L2.** If available, toggle contextual grounding and test a grounded vs ungrounded answer. ([Grounding check](https://docs.aws.amazon.com/bedrock/latest/userguide/guardrails-contextual-grounding-check.html))
 - [ ] **L3.** Skim Model Cards console/docs; note risk rating field. ([Model Cards](https://docs.aws.amazon.com/sagemaker/latest/dg/model-cards.html))
 - [ ] **L4.** Confirm CloudTrail is logging (or note how you’d verify Bedrock API calls). Open Artifact home to see report categories. ([Artifact](https://docs.aws.amazon.com/artifact/latest/ug/what-is-artifact.html))
-- [ ] **L5.** Read the [Generative AI Security Scoping Matrix](https://aws.amazon.com/ai/security/generative-ai-scoping-matrix/) page; write Scope 1–5 in your own words.
+- [ ] **L5.** Read the [Generative AI Security Scoping Matrix](https://aws.amazon.com/ai/security/generative-ai-scoping-matrix/) page; write Scopes 1-5 in your own words.
 
-### Option B — Paper
+### Option B: Paper
 
 - [ ] Draw shared-responsibility swimlane: AWS vs customer for a Scope 3 Bedrock+RAG app. Place IAM, KMS, Guardrails, Macie, CloudTrail, Model Card on the customer side where appropriate.
 
@@ -193,12 +201,12 @@ By the end of this workbook you can:
 
 ## Reflection / teach it back
 
-5–7 minutes to a security-minded peer:
+5-7 minutes, ideally to a security-minded peer who'll push back:
 
 1. Guardrails filter map.  
 2. Model Cards + human-centered explainability.  
 3. Prompt injection + grounding.  
-4. Scoping matrix 1–5 with one example each.  
+4. Scoping matrix 1-5 with one example each.  
 5. CloudTrail / Artifact / Config / Inspector / Trusted Advisor cheat sheet.
 
 ---
@@ -208,12 +216,12 @@ By the end of this workbook you can:
 - [ ] Lists responsible-AI dims and Guardrails types
 - [ ] Writes a Model Card outline from memory
 - [ ] Maps IAM/encrypt/Macie/PrivateLink/Guardrails/AgentCore Identity to threats
-- [ ] Classifies Scopes 1–5 correctly
+- [ ] Classifies Scopes 1-5 correctly
 - [ ] Picks correct governance service for audit scenarios
 - [ ] Retrieval ≥12/15 before answer key
 - [ ] Lab or paper done
 
-**Exit:** Mark Domains 4–5 punch items → [Workbook 05 Capstone](./05-capstone-and-exam-ready.md).
+**Exit:** Mark Domains 4-5 punch items → [Workbook 05 Capstone](./05-capstone-and-exam-ready.md).
 
 ---
 
@@ -227,15 +235,15 @@ By the end of this workbook you can:
 3. Hallucinations / ungrounded or irrelevant answers in RAG.  
 4. Intended uses / not-intended, risk rating, training/eval metrics, ethical caveats…  
 5. Transparent: linear/rules; opaque: deep nets/LLMs.  
-6. Strong filters may hide detail; interpretable models may underperform — document tradeoffs.  
+6. Strong filters may hide detail; interpretable models may underperform. Document the tradeoffs.  
 7. Models don’t enforce your data ACLs; filter before context; IAM on tools/data.  
 8. Discover/classify sensitive data in S3 corpora.  
 9. Private connectivity to service without public internet exposure.  
 10. Secrets Manager (never prompts).  
-11. User input and model output — not automatically every retrieved chunk.  
+11. User input and model output. Not automatically every retrieved chunk.  
 12. CloudTrail: API audit; Artifact: compliance reports; Config: config compliance over time; Inspector: vuln findings on compute.  
 13. 1: public ChatGPT-like use; 3: your app + Bedrock API + RAG; 5: you train from scratch.  
-14. Hard to erase from weights; may need full retrain/delete — prefer RAG for volatile/PII.  
+14. Hard to erase from weights; may need full retrain/delete. Prefer RAG for volatile/PII.  
 15. Lifecycle, logging, residency, monitoring, retention…
 
 </details>

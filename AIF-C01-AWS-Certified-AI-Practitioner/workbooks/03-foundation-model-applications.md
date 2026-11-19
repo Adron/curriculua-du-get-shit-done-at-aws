@@ -1,21 +1,23 @@
 ---
 layout: default
-title: "Workbook 03 — Foundation Model Applications"
+title: "Workbook 03: Foundation Model Applications"
 ---
 
-# Workbook 03 — Foundation Model Applications
+# Workbook 03: Foundation Model Applications
 
 **Covers:** [topics/07](../topics/07-fm-application-design-rag-agents.md) · [08](../topics/08-prompt-engineering-techniques.md) · [09](../topics/09-fm-training-and-fine-tuning.md) · [10](../topics/10-fm-evaluation-methods-and-metrics.md)  
-**Domain:** 3 — Applications of Foundation Models (**28%** — heaviest)  
+**Domain:** 3, Applications of Foundation Models (**28%**, the heaviest)  
 **Prerequisites:** [Workbook 02](./02-genai-fundamentals.md); comfort with tokens/embeddings/Bedrock map.  
-**Estimated time:** 6–8 hours (split across 2–3 sessions)  
+**Estimated time:** 6-8 hours (split across 2-3 sessions)  
 **Nav:** [Workbooks home](./README.md) · [Punch list](../PUNCH-LIST.md)
+
+This is the big one. Domain 3 is more points than any other domain, and the prompt vs RAG vs fine-tune vs agent call is the single most common decision on the exam. It's also the one I see teams get wrong in real life. Give this workbook the most time and don't rush the scenarios.
 
 ---
 
 ## Learning objectives
 
-By the end of this workbook you can:
+By the end of this one, I want to be able to:
 
 1. Select FMs using cost, modality, latency, context, compliance, and customization criteria; tune temperature/top-p/max tokens for the task.
 2. Design a RAG flow with Knowledge Bases, citations, and vector DB options; decide Managed vs customer-managed KB conceptually.
@@ -28,9 +30,11 @@ By the end of this workbook you can:
 
 ## Activate prior knowledge
 
+A few minutes each, from your own experience:
+
 1. Last GenAI demo you saw: was knowledge coming from **weights**, **prompt**, or **retrieved docs**?
 2. Have you ever written a “few-shot” example in a prompt without calling it that?
-3. How would you know a model upgrade is better — gut feel, A/B, or metrics?
+3. How would you know a model upgrade is actually better: gut feel, A/B, or metrics?
 
 ---
 
@@ -50,20 +54,22 @@ By the end of this workbook you can:
 
 ## Retrieval practice (closed-book)
 
+Fifteen questions. Paper first, answer key later.
+
 **Design & RAG**
 
 1. List five FM selection criteria.
 2. Temperature high or low for compliance Q&A?
-3. Draw the RAG loop in 6–7 boxes.
+3. Draw the RAG loop in 6-7 boxes.
 4. Name three AWS vector DB examples from the exam guide family.
 5. Fine-tune vs RAG: which changes weights? Which injects fresh proprietary facts?
 6. When is an **agent** justified over a single RetrieveAndGenerate call?
 
 **Prompts**
 
-7. Zero-shot vs few-shot vs CoT — one use each.
+7. Zero-shot vs few-shot vs CoT: one use each.
 8. What does Bedrock Prompt Management give you beyond a text box?
-9. Jailbreak vs prompt injection — distinguish briefly.
+9. Jailbreak vs prompt injection: distinguish briefly.
 
 **Training**
 
@@ -73,7 +79,7 @@ By the end of this workbook you can:
 
 **Eval**
 
-13. ROUGE vs BLEU vs BERTScore vs LLM-as-judge — one phrase each.
+13. ROUGE vs BLEU vs BERTScore vs LLM-as-judge: one phrase each.
 14. Why HITL for brand-sensitive content?
 15. Name two RAG-specific eval dimensions and one agent-specific dimension.
 
@@ -81,13 +87,13 @@ By the end of this workbook you can:
 
 ## Worked example → guided → independent
 
-### Worked example — customization ladder
+### Worked example: the customization ladder
 
 **Need:** Support bot must answer from product manuals updated weekly; tone should match brand (short, friendly); sometimes call “create ticket” API.
 
 | Layer | Decision |
 |---|---|
-| Facts | **RAG** on manuals (weekly ingest) — not fine-tune for weekly changes |
+| Facts | **RAG** on manuals (weekly ingest). Don't fine-tune for weekly changes. |
 | Tone/format | Start with **few-shot + Prompt Management**; fine-tune only if still failing |
 | Actions | **Agent** with ticket tool + least privilege |
 | Params | Low temperature; max tokens capped |
@@ -165,15 +171,17 @@ By the end of this workbook you can:
 
 ## Hands-on lab
 
-### Option A — Console (plan 90+ min; can split)
+### Option A: Console (plan 90+ min; can split)
+
+L1 is [B1](../../build.md#b1) and L2 is the heart of [B2](../../build.md#b2). If you're following the build, point L2 at a couple dozen blog posts instead of the sample data. Much more interesting when you know what the right answer is.
 
 - [ ] **L1.** Bedrock playground: same question at temp 0 vs 1; change max tokens; note length/cost behavior. ([Inference parameters](https://docs.aws.amazon.com/bedrock/latest/userguide/inference-parameters.html))
 - [ ] **L2.** Knowledge Bases: create or open a sample KB (or follow docs tutorial). Run retrieve vs retrieve-and-generate if available. ([KB guide](https://docs.aws.amazon.com/bedrock/latest/userguide/knowledge-base.html))
-- [ ] **L3.** Prompt Management: create a prompt with a `{{variable}}`, save a version, optionally create a variant. ([Prompt Management](https://docs.aws.amazon.com/bedrock/latest/userguide/prompt-management.html))
+- [ ] **L3.** Prompt Management: create a prompt with a <code>&#123;&#123;variable&#125;&#125;</code>, save a version, optionally create a variant. ([Prompt Management](https://docs.aws.amazon.com/bedrock/latest/userguide/prompt-management.html))
 - [ ] **L4.** Skim Model Evaluation docs; list metrics you could score. ([Evaluation](https://docs.aws.amazon.com/bedrock/latest/userguide/evaluation.html))
-- [ ] **L5.** Optional: JumpStart fine-tune docs — note that epochs/LR exist but you won’t tune them for this exam. ([JumpStart fine-tune](https://docs.aws.amazon.com/sagemaker/latest/dg/jumpstart-fine-tune.html))
+- [ ] **L5.** Optional: JumpStart fine-tune docs. Note that epochs/LR exist, but you won't tune them for this exam. ([JumpStart fine-tune](https://docs.aws.amazon.com/sagemaker/latest/dg/jumpstart-fine-tune.html))
 
-### Option B — Paper architecture
+### Option B: Paper architecture
 
 - [ ] Diagram: User → API → Guardrails → Agent planner → (KB retrieve | Ticket tool) → FM generate → citations → logs. Annotate where eval probes attach (retrieval, faithfulness, tool success).
 
@@ -197,7 +205,7 @@ By the end of this workbook you can:
 
 ## Reflection / teach it back
 
-Record a 7-minute talk:
+Record a 7-minute talk. Yes, out loud. It's awkward and it works:
 
 1. Customization ladder with one example each.  
 2. RAG loop + one vector store.  
@@ -238,7 +246,7 @@ Record a 7-minute talk:
 11. Smaller/faster/cheaper student mimicking teacher.  
 12. Curation, governance/rights, size, labeling quality, representativeness, RLHF preference data…  
 13. ROUGE: summary n-gram recall overlap; BLEU: precision n-gram (MT); BERTScore: embedding semantic similarity; LLM-judge: model grades outputs.  
-14. Subjective quality, safety, brand, high-risk — autoscores miss nuance.  
+14. Subjective quality, safety, brand, high-risk. Autoscores miss nuance.  
 15. RAG: retrieval relevance, groundedness/faithfulness, citation correctness… Agent: tool selection accuracy, step success, unsafe tool use, trajectory quality…
 
 </details>

@@ -1,14 +1,14 @@
 ---
 layout: default
-title: "Workbook 03 — Safety, Security, and Governance"
+title: "Workbook 03: Safety, Security, and Governance"
 ---
 
-# Workbook 03 — Safety, Security, and Governance
+# Workbook 03: Safety, Security, and Governance
 
-**Domain 3 (20%)** · Topics [12](../topics/12-input-output-safety-controls.md)–[15](../topics/15-responsible-ai-principles.md)  
+**Domain 3 (20%)** · Topics [12](../topics/12-input-output-safety-controls.md)-[15](../topics/15-responsible-ai-principles.md)  
 **Pack:** [Workbooks home](./README.md) · [Punch list](../PUNCH-LIST.md) · [Cert README](../README.md)
 
-Overlay the Policy Copilot with **Guardrails**, privacy controls, governance/lineage, and Responsible AI practices. Exam scenarios punish “the model will be careful” designs.
+Time to wrap the Policy Copilot in **Guardrails**, privacy controls, governance and lineage, and Responsible AI practices. Exam scenarios punish "the model will be careful" designs, and so does production. **Hoping isn't a control.**
 
 ---
 
@@ -31,7 +31,7 @@ By the end of this workbook you can:
 | --- | --- |
 | Prior | Working Converse and/or RAG path from [Workbook 01](./01-fm-integration-data-and-rag.md) |
 | Ideal | Agent path from [Workbook 02](./02-agents-and-enterprise-integration.md) to harden |
-| Time | **8–12 hours** (weeks 6–7) |
+| Time | **8-12 hours** (weeks 6-7) |
 | Artifacts | Guardrail ARN attached everywhere inference runs + privacy ADR addendum |
 
 ---
@@ -59,10 +59,10 @@ By the end of this workbook you can:
 
 ## 4. Concept refresh (link topics)
 
-- [ ] [12 — Input/output safety controls](../topics/12-input-output-safety-controls.md) — Guardrails; grounding; jailbreak  
-- [ ] [13 — Data security and privacy](../topics/13-data-security-and-privacy.md) — VPC; Lake Formation; PII; retention  
-- [ ] [14 — AI governance and compliance](../topics/14-ai-governance-and-compliance.md) — model cards; lineage; CloudTrail; drift  
-- [ ] [15 — Responsible AI principles](../topics/15-responsible-ai-principles.md) — transparency; fairness; judge; policy enforcement  
+- [ ] [12: Input/output safety controls](../topics/12-input-output-safety-controls.md): Guardrails; grounding; jailbreak  
+- [ ] [13: Data security and privacy](../topics/13-data-security-and-privacy.md): VPC; Lake Formation; PII; retention  
+- [ ] [14: AI governance and compliance](../topics/14-ai-governance-and-compliance.md): model cards; lineage; CloudTrail; drift  
+- [ ] [15: Responsible AI principles](../topics/15-responsible-ai-principles.md): transparency; fairness; judge; policy enforcement  
 
 **Synthesis:** List every inference entrypoint in your copilot (UI, batch, agent tool, Flow). For each, note Guardrail attachment + logging destination.
 
@@ -78,7 +78,7 @@ By the end of this workbook you can:
 4. Name a Guardrails unsupported modality/use that trips candidates.  
 5. Defense-in-depth chain for toxic input (4 layers).  
 6. How do VPC endpoints change the Bedrock shared-responsibility story for networking?  
-7. Macie vs Comprehend for PII in a RAG corpus—when each?  
+7. Macie vs Comprehend for PII in a RAG corpus: when each?  
 8. Why retain model invocation logs carefully (and when not to log raw prompts)?  
 9. Glue Catalog’s governance role for RAG sources?  
 10. Fairness eval trap when you only report aggregate accuracy?
@@ -100,18 +100,18 @@ By the end of this workbook you can:
 
 ## 6. Worked → guided → independent
 
-### Worked example — Guardrail for Policy Copilot
+### Worked example: Guardrail for Policy Copilot
 
 | Control | Setting | Rationale |
 | --- | --- | --- |
-| Content filters | Hate/insults/violence medium–high | Employee UX + brand |
+| Content filters | Hate/insults/violence medium-high | Employee UX + brand |
 | Denied topics | Medical diagnosis, legal advice as counsel | Out of scope |
 | PII | Block/mask SSN, credit card on I/O | Privacy |
 | Prompt attack | Enabled; user inputs tagged | Jailbreak resistance |
 | Grounding | On for RAG answers | Reduce hallucinations |
 | Tier | Standard where prompt-attack/code protections needed | Higher assurance |
 
-Attach via `guardrailConfig` on Converse, KB RetrieveAndGenerate, Agent, and Flow prompt nodes. Monitor blocked-input rate and false positives weekly.
+Attach it via `guardrailConfig` on Converse, KB RetrieveAndGenerate, Agent, and Flow prompt nodes. Then watch blocked-input rate and false positives weekly; a Guardrail nobody monitors drifts into either useless or annoying.
 
 ### Guided practice
 
@@ -124,6 +124,8 @@ Attach via `guardrailConfig` on Converse, KB RetrieveAndGenerate, Agent, and Flo
 
 ### Independent practice
 
+Fully on your own now:
+
 - [ ] Lambda post-validator: JSON schema / citation required / refuse if no retrieve hits  
 - [ ] Macie job on corpus bucket; quarantine findings  
 - [ ] CloudTrail Lake query for Guardrail/policy changes  
@@ -134,25 +136,25 @@ Attach via `guardrailConfig` on Converse, KB RetrieveAndGenerate, Agent, and Flo
 
 ## 7. Architecture defense scenarios
 
-### Scenario D3-1 — “Safety in the prompt”
+### Scenario D3-1: “Safety in the prompt”
 
 Exec asks to skip Guardrails to reduce latency/cost; system prompt says “follow company policy.”
 
 Defend keeping Guardrails; quantify latency tradeoff vs risk.
 
-### Scenario D3-2 — Multi-tenant leakage
+### Scenario D3-2: Multi-tenant leakage
 
 Retrieve returns another tenant’s policy chunk; answer cites it.
 
 Defend metadata filters, tool-layer ACL, logging, and incident response.
 
-### Scenario D3-3 — Private network mandate
+### Scenario D3-3: Private network mandate
 
 Bank requires no public internet for inference.
 
 Defend VPC endpoints, PrivateLink patterns, logging sinks, and break-glass.
 
-### Scenario D3-4 — Governance theater
+### Scenario D3-4: Governance theater
 
 Team has a Responsible AI slide deck but no lineage, no model card owner, no eval gates.
 
@@ -162,21 +164,23 @@ Defend a minimal viable governance operating model.
 
 ## 8. Hands-on production-shaped labs
 
-### Lab A — Guardrails everywhere (topic 12)
+### Lab A: Guardrails everywhere (topic 12)
+
+The grown-up version of [B3](../../build.md#b3). All three labs here roll up into [B11](../../build.md#b11).
 
 - [ ] One Guardrail ARN reused across Converse, Flow, Agent  
 - [ ] Prompt-attack + input tagging verified on InvokeModel test path  
 - [ ] Grounding scores dashboard (even a Logs Insights query)  
 - [ ] Adversarial suite checked into repo  
 
-### Lab B — Privacy hard path (topic 13)
+### Lab B: Privacy hard path (topic 13)
 
 - [ ] Corpus bucket: SSE-KMS, block public, Macie  
 - [ ] Mask PII in invocation logs  
 - [ ] Retention: S3 lifecycle on logs; KB sync deletes propagate  
 - [ ] Lake Formation (or IAM ABAC) notes for who can sync/retrieve  
 
-### Lab C — Governance + RAI (topics 14–15)
+### Lab C: Governance + RAI (topics 14-15)
 
 - [ ] Model card in repo + owner  
 - [ ] Lineage fields: source URI, transform version, embedding model ID, prompt version  
@@ -217,7 +221,7 @@ Defend a minimal viable governance operating model.
 - [ ] Red-team CI or scheduled job exists  
 - [ ] Closed-book ≥80%  
 
-**Next:** [Workbook 04 — Optimize, monitor, evaluate, troubleshoot](./04-optimize-monitor-evaluate-troubleshoot.md)
+**Next:** [Workbook 04: Optimize, monitor, evaluate, troubleshoot](./04-optimize-monitor-evaluate-troubleshoot.md)
 
 ---
 
@@ -225,14 +229,14 @@ Defend a minimal viable governance operating model.
 
 ### Short answer
 
-1. Converse/ConverseStream, Agents, Knowledge Bases RetrieveAndGenerate, Prompt Flow nodes—consistency matters.  
+1. Converse/ConverseStream, Agents, Knowledge Bases RetrieveAndGenerate, Prompt Flow nodes. Consistency matters.  
 2. **Tag user inputs** so prompt-attack filters evaluate them.  
-3. **No** — tool results/tool specs are not evaluated the same way; validate tools separately.  
+3. **No**: tool results/tool specs are not evaluated the same way; validate tools separately.  
 4. Applying Guardrails to embeddings / image generation / rerank models (unsupported).  
 5. Comprehend toxicity/PII → Guardrails → Lambda business/schema checks → API Gateway response filters.  
 6. Traffic stays on AWS private network via interface endpoints; still manage IAM, encryption, logging.  
 7. Macie: discovery/classification at rest in S3; Comprehend: NLP PII detection in text pipelines/realtime.  
-8. Forensics and quality debug; avoid raw logs when prompts contain secrets/PII—mask or sample.  
+8. Forensics and quality debug; avoid raw logs when prompts contain secrets/PII; mask or sample.  
 9. Catalog sources, ownership, schemas, DQ; lineage for audits.  
 10. Hides subgroup harm/refusal disparities.
 
@@ -246,7 +250,7 @@ Defend a minimal viable governance operating model.
 ### True / false
 
 15. **False**  
-16. **False** — enforce via Guardrails/code/IAM in the path  
+16. **False**: enforce via Guardrails/code/IAM in the path  
 17. **True**
 
 ### Architecture defense (rubric)
@@ -254,7 +258,7 @@ Defend a minimal viable governance operating model.
 **D3-1:** Keep Guardrails; measure added latency; risk of unauditable harm &gt; small TTFT gain; use tier tuning not removal.  
 **D3-2:** Mandatory metadata filters + tool ACL; dual enforcement; audit logs; rotate/reindex if needed; customer notification process.  
 **D3-3:** Bedrock VPC endpoints; private subnets; private log sinks; controlled CI egress.  
-**D3-4:** Owner, model card, lineage fields, eval gate, quarterly RAI review—minimum viable ops.
+**D3-4:** Owner, model card, lineage fields, eval gate, quarterly RAI review. That's minimum viable ops.
 
 ### Lab self-grade
 

@@ -1,13 +1,22 @@
-title: AWS AI Certification Curriculum 2027
-description: Study path for preparing and taking AIF-C01, MLA-C02, and AIP-C01 — punch lists, topic notes, and workbooks.
+title: curriculum-2027
+description: "Adron's path through three AWS AI certifications: AIF-C01, MLA-C02, and AIP-C01. Topic notes, punch lists, workbooks, and a running build."
+author: Adron Hall
 url: "https://adron.github.io"
 baseurl: "/curriculum-2027"
+repository: Adron/curriculum-2027
 
-remote_theme: pages-themes/cayman@v0.2.0
+# Custom hacker theme lives in _layouts, _includes, and assets/. No remote theme.
 plugins:
-  - jekyll-remote-theme
   - jekyll-relative-links
   - jekyll-seo-tag
+  - jekyll-optional-front-matter
+  - jekyll-readme-index
+  - jekyll-titles-from-headings
+
+readme_index:
+  enabled: true
+  remove_originals: true
+  with_frontmatter: true
 
 relative_links:
   enabled: true
@@ -17,6 +26,7 @@ markdown: kramdown
 kramdown:
   input: GFM
   hard_wrap: false
+  syntax_highlighter: rouge
 
 exclude:
   - "*.zip"
@@ -25,6 +35,7 @@ exclude:
   - "node_modules"
   - "Gemfile"
   - "Gemfile.lock"
+  - "README.md"
 
 defaults:
   - scope:

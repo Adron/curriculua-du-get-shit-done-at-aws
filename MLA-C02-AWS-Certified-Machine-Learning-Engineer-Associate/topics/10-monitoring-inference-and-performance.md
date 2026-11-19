@@ -1,16 +1,20 @@
-# 10 — Monitoring inference and performance
+---
+title: "10: Monitoring inference and performance"
+---
 
-**Domain 4 · Task 4.1** · Skills **4.1.1–4.1.6** · Domain weight **24%**
+# 10: Monitoring inference and performance
 
-## What it is
+**Domain 4 (24%) · Task 4.1 · Skills 4.1.1-4.1.6**
 
-Watching production ML/GenAI: CloudWatch GenAI observability, Bedrock Model Evaluation, drift pipelines, workflow anomalies, A/B tests, agent coordination failures, and FM-specific eval monitoring.
+Watching ML and GenAI in production: CloudWatch GenAI observability, Bedrock Model Evaluation, drift pipelines, workflow anomalies, A/B tests, agent coordination failures, and FM-specific eval monitoring.
 
-## Why it matters for MLA-C02
+C02 goes past classic Model Monitor here and adds **agent performance and coordination monitoring** (tool failures, truncated streaming, coordination failures) plus **FM-specific evaluation monitoring**.
 
-C02 adds **agent performance/coordination monitoring** (tool failures, truncated streaming, coordination failures) and **FM-specific evaluation monitoring** beyond classic Model Monitor.
+**An HTTP 200 is not a success.** The endpoint can be green across the board while the model quietly drifts, retrieval comes back empty, and the agent loops through its token budget. Monitor what the system is *for*, not just whether it's up.
 
-## Exam-relevant skills map
+## What to know
+
+### Skills map
 
 | Skill | Focus |
 |---|---|
@@ -21,7 +25,7 @@ C02 adds **agent performance/coordination monitoring** (tool failures, truncated
 | 4.1.5 | Agent performance & coordination failures |
 | 4.1.6 | FM performance monitoring / Bedrock evaluations |
 
-## Monitoring stack
+### Monitoring stack
 
 | Layer | What to watch |
 |---|---|
@@ -33,20 +37,20 @@ C02 adds **agent performance/coordination monitoring** (tool failures, truncated
 | **Agents** | Step success, tool error rate, truncated streams, session duration |
 | **RAG** | Retrieval empty-rate, citation presence, faithfulness scores |
 
-## Drift & baselines
+### Drift and baselines
 
-- Capture baseline with Model Monitor (data quality, model quality, bias, feature attribution drift).
-- Schedule monitoring jobs; EventBridge → alert / retrain pipeline.
-- Separate **data drift** (input distribution) from **concept drift** (label relationship).
+- Capture a baseline with Model Monitor (data quality, model quality, bias, feature attribution drift).
+- Schedule monitoring jobs; EventBridge routes to an alert or a retrain pipeline.
+- Keep **data drift** (input distribution) separate from **concept drift** (the label relationship).
 
-## A/B testing (4.1.4)
+### A/B testing (4.1.4)
 
 - SageMaker production variants with traffic weights (e.g., 90/10).
-- Compare business + technical metrics for equal duration / sample size.
-- Promote winner; keep rollback weights ready.
-- For Bedrock: dual prompts/models behind app router or aliases; same discipline.
+- Compare business and technical metrics over equal duration and sample size.
+- Promote the winner and keep rollback weights ready.
+- For Bedrock: dual prompts or models behind an app router or aliases. Same discipline.
 
-## Agent coordination failures (4.1.5) — C02 hot
+### Agent coordination failures (4.1.5): C02 hot topic
 
 | Failure | Symptom | Monitor |
 |---|---|---|
@@ -55,39 +59,43 @@ C02 adds **agent performance/coordination monitoring** (tool failures, truncated
 | Truncated streaming | Partial user-visible output | Stop reason, byte length vs expected |
 | Looping | Token burn without progress | Steps/session, max-iteration hits |
 
-AgentCore Observability emits OTEL-compatible traces/metrics into CloudWatch — use dashboards for session count, latency, tokens, errors.
+AgentCore Observability emits OTEL-compatible traces and metrics into CloudWatch. Use dashboards for session count, latency, tokens, and errors.
 
-## FM evals in production (4.1.6)
+### FM evals in production (4.1.6)
 
 - Periodic Bedrock Model Evaluation jobs on sampled prod prompts (privacy-safe).
 - Online metrics: user thumbs, task success, Guardrail block rate.
-- Offline golden sets for regression after prompt/model changes.
+- Offline golden sets for regression after any prompt or model change.
 
-## AWS services
+## AWS services in play
 
-CloudWatch (metrics, logs, alarms, GenAI observability), SageMaker Model Monitor, Bedrock Model Evaluation, Bedrock AgentCore Observability, EventBridge, SNS, X-Ray (deeper traces — topic 11).
+CloudWatch (metrics, logs, alarms, GenAI observability), SageMaker Model Monitor, Bedrock Model Evaluation, Bedrock AgentCore Observability, EventBridge, SNS, and X-Ray for deeper traces (topic 11).
 
-## Hands-on practice
+## Hands-on
 
-1. Enable detailed endpoint metrics; alarm on p99 latency and 5xx rate.
-2. Create Model Monitor baseline + schedule; inject drifted data; confirm alarm.
-3. Split traffic 80/20 across two variants; read invocation metrics per variant.
-4. Enable AgentCore/CloudWatch observability; force a tool failure; find it in traces.
+1. Enable detailed endpoint metrics and alarm on p99 latency and 5xx rate.
+2. Create a Model Monitor baseline + schedule, inject drifted data, and confirm the alarm fires. With the [B5](../../build.md#b5) classifier, the drift is real: what I write about in 2026 doesn't look like what I wrote about in 2011. This is the monitoring half of [B8](../../build.md#b8).
+3. Split traffic 80/20 across two variants and read invocation metrics per variant.
+4. Enable AgentCore/CloudWatch observability, force a tool failure, and find it in the traces.
 5. Schedule a weekly Bedrock eval on a sampled prompt set.
 
-## Common traps
+## Exam traps
 
-- Alarms only on host CPU — missing model quality collapse.
-- A/B without enough traffic or with confounded releases (prompt + model same day).
-- Ignoring Guardrail block spikes (safety or UX incident).
-- Treating agent “success HTTP 200” as task success.
+- Alarms only on host CPU, missing a model quality collapse entirely.
+- A/B tests without enough traffic, or confounded releases (prompt + model changed the same day).
+- Ignoring Guardrail block spikes. That's either a safety incident or a UX incident.
+- Treating an agent's HTTP 200 as task success.
 - No separate RAG retrieval metrics.
+
+## Exam guide mapping
+
+- **Domain 4 (24%) · Task 4.1 · Skills 4.1.1-4.1.6**: monitoring inference and performance.
 
 ## Research links
 
-- https://docs.aws.amazon.com/sagemaker/latest/dg/model-monitor.html
-- https://docs.aws.amazon.com/bedrock/latest/userguide/model-evaluation.html
-- https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/observability.html
-- https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/WhatIsCloudWatch.html
-- https://docs.aws.amazon.com/sagemaker/latest/dg/model-ab-testing.html
-- https://docs.aws.amazon.com/pdfs/aws-certification/latest/machine-learning-engineer-associate-02/machine-learning-engineer-associate-02.pdf
+- <https://docs.aws.amazon.com/sagemaker/latest/dg/model-monitor.html>
+- <https://docs.aws.amazon.com/bedrock/latest/userguide/model-evaluation.html>
+- <https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/observability.html>
+- <https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/WhatIsCloudWatch.html>
+- <https://docs.aws.amazon.com/sagemaker/latest/dg/model-ab-testing.html>
+- <https://docs.aws.amazon.com/pdfs/aws-certification/latest/machine-learning-engineer-associate-02/machine-learning-engineer-associate-02.pdf>

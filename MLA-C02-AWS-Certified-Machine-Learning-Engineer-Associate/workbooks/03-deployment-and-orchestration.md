@@ -1,13 +1,15 @@
 ---
 layout: default
-title: "Workbook 03 — Deployment and orchestration"
+title: "Workbook 03: Deployment and orchestration"
 ---
 
-# Workbook 03 — Deployment and orchestration
+# Workbook 03: Deployment and orchestration
 
 **Domain 3 (24%)** · Topics [07](../topics/07-deployment-infrastructure.md) · [08](../topics/08-resource-provisioning-and-configuration.md) · [09](../topics/09-cicd-orchestration-mlops.md)
 
-Builder focus: **where it runs → how it’s provisioned → how it’s shipped**. Prefer SDK/CLI/Boto3/CFN over click-ops; always plan **rollback** and **KB/prompt/agent versioning**.
+Builder focus: **where it runs → how it's provisioned → how it's shipped**. SDK/CLI/Boto3/CFN over click-ops, every time. And always plan the **rollback** plus **KB/prompt/agent versioning** before you need them, not after.
+
+This is the [B7](../../build.md#b7) workbook for me: getting the tag classifier out of a notebook and into something deployed by a pipeline I'm not afraid to run.
 
 ---
 
@@ -25,13 +27,13 @@ By the end of this workbook you can:
 
 | Item | Detail |
 |---|---|
-| Prerequisites | Workbooks 01–02 recommended; topics 07–09 read |
-| Estimated time | **6–8 hours** (weeks 5–6) |
+| Prerequisites | Workbooks 01-02 recommended; topics 07-09 read |
+| Estimated time | **6-8 hours** (weeks 5-6) |
 | Materials | SageMaker + Bedrock permissions; ECR optional; paper path OK |
 
 ## 3. Activate prior knowledge
 
-1. Async inference vs batch transform — what’s the user-experience difference?
+1. Async inference vs batch transform: what’s the user-experience difference?
 2. Why pin container image digests in production?
 3. Name one GenAI artifact besides a model package that needs versioning in CI/CD.
 
@@ -39,9 +41,9 @@ By the end of this workbook you can:
 
 | Topic | Refresh focus |
 |---|---|
-| [07 — Deploy infra](../topics/07-deployment-infrastructure.md) | Inference modes; MME; FM hosting; CMI; agents; RAG retrieve/rerank |
-| [08 — Provisioning](../topics/08-resource-provisioning-and-configuration.md) | On-demand vs provisioned; VPC; SDK deploy; autoscaling; KB; agent state; GPU; AgentCore |
-| [09 — CI/CD MLOps](../topics/09-cicd-orchestration-mlops.md) | Code* services; Registry/MLflow; Prompt Management; agent versioning; KB refresh; rollback |
+| [07: Deploy infra](../topics/07-deployment-infrastructure.md) | Inference modes; MME; FM hosting; CMI; agents; RAG retrieve/rerank |
+| [08: Provisioning](../topics/08-resource-provisioning-and-configuration.md) | On-demand vs provisioned; VPC; SDK deploy; autoscaling; KB; agent state; GPU; AgentCore |
+| [09: CI/CD MLOps](../topics/09-cicd-orchestration-mlops.md) | Code* services; Registry/MLflow; Prompt Management; agent versioning; KB refresh; rollback |
 
 **C02 GenAI callouts:** Custom Model Import, Bedrock agents / AgentCore, KB retrieval pipelines, prompt testing in CI, FM fine-tuned version deploy automation, RAG/KB refresh orchestration.
 
@@ -51,19 +53,19 @@ By the end of this workbook you can:
 
 **R2.** When is multi-model endpoint a cost win? When is it a bad fit?
 
-**R3.** Bedrock on-demand vs Provisioned Throughput — pick for variable hobby traffic vs steady 500 TPS SLA.
+**R3.** Bedrock on-demand vs Provisioned Throughput: pick for variable hobby traffic vs steady 500 TPS SLA.
 
 **R4.** List three autoscaling signals you might use for a SageMaker endpoint.
 
 **R5.** Sketch the MLOps stages from source → monitor → retrain (include a GenAI-specific stage).
 
-**R6.** Blue/green vs canary vs shadow — one line each.
+**R6.** Blue/green vs canary vs shadow: one line each.
 
 **R7.** What does a KB refresh pipeline need to orchestrate beyond “upload files to S3”?
 
 ## 6. Worked → guided → independent practice
 
-### Worked example — hybrid ML + RAG production path
+### Worked example: hybrid ML + RAG production path
 
 **Need:** Real-time fraud score (tabular) + support agent (Bedrock + tools).
 
@@ -111,19 +113,25 @@ Include roles, artifact stores (ECR/S3/Registry), and who/what triggers retrain 
 
 ## 8. Hands-on labs
 
-### Lab A — SageMaker deploy
+### Lab A: SageMaker deploy
+
+The [B5](../../build.md#b5) classifier gets a handful of calls a day. Perfect serverless test subject ([B7](../../build.md#b7)).
 
 - [ ] Deploy the same model real-time **or** serverless; note cold start / cost shape
 - [ ] (Optional) Async endpoint for a large-input path
 - [ ] Update endpoint via SDK/CLI; keep prior config for rollback drill
 
-### Lab B — Bedrock / agent / KB
+### Lab B: Bedrock / agent / KB
+
+Use the [B6](../../build.md#b6) knowledge base. Metadata filters on category or year are an easy first comparison.
 
 - [ ] Configure KB retrieve with `numberOfResults` / metadata filter; compare answers
 - [ ] Minimal agent with one Lambda tool; invoke multi-turn
 - [ ] Trigger a KB ingestion job; document the orchestration steps you would automate
 
-### Lab C — CI/CD paper or CodePipeline sketch
+### Lab C: CI/CD paper or CodePipeline sketch
+
+Sketch the [B7](../../build.md#b7) pipeline: new post lands, archive pipeline runs, classifier retrains on a gate, KB re-syncs.
 
 - [ ] Draw CodePipeline (or SageMaker Pipelines) with eval gate + Registry approval
 - [ ] Add prompt test step and KB refresh branch
@@ -180,8 +188,8 @@ Include roles, artifact stores (ECR/S3/Registry), and who/what triggers retrain 
 
 **Scenarios**
 
-**S1.** MME — cost win for sparse shared-framework models.  
+**S1.** MME: cost win for sparse shared-framework models.  
 **S2.** Provisioned Throughput; caching; smaller/faster FM; async for non-interactive; request batching where valid.  
 **S3.** IaC + pipeline; Prompt Management versions; agent aliases; deny console mutate in prod; CloudTrail alerts.  
 **S4.** Chunking strategy, metadata filters, embedding model mismatch, top-k/rerank, stale index, sync lag, hybrid search needs.  
-**S5.** Rightsize instance, MME/consolidation, serverless for spiky, batch off-peak, quantization/smaller model, scale-in policies — then purchasing options.
+**S5.** Rightsize instance, MME/consolidation, serverless for spiky, batch off-peak, quantization/smaller model, scale-in policies: then purchasing options.

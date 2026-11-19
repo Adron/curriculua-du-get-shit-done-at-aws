@@ -1,13 +1,15 @@
 ---
 layout: default
-title: "Workbook 04 — Operate, monitor, secure"
+title: "Workbook 04: Operate, monitor, and secure"
 ---
 
-# Workbook 04 — Operate, monitor, and secure
+# Workbook 04: Operate, monitor, and secure
 
 **Domain 4 (24%)** · Topics [10](../topics/10-monitoring-inference-and-performance.md) · [11](../topics/11-cost-and-performance-optimization.md) · [12](../topics/12-securing-ml-ai-workloads.md)
 
-Builder focus: **observe → optimize → harden**. Production MLA work is alarms, token economics, least privilege, and Guardrails — not only a green endpoint.
+Builder focus: **observe → optimize → harden**. Production MLA work is alarms, token economics, least privilege, and Guardrails. A green endpoint is the start of the job, not the end of it.
+
+For my build this is [B8](../../build.md#b8): watch it and lock it down.
 
 ---
 
@@ -25,23 +27,23 @@ By the end of this workbook you can:
 
 | Item | Detail |
 |---|---|
-| Prerequisites | Workbook 03 recommended; topics 10–12 read |
-| Estimated time | **5–7 hours** (week 7) |
+| Prerequisites | Workbook 03 recommended; topics 10-12 read |
+| Estimated time | **5-7 hours** (week 7) |
 | Materials | Deployed endpoint or Bedrock app (or paper); CloudWatch access |
 
 ## 3. Activate prior knowledge
 
 1. Why is “CPU alarm only” insufficient for an ML endpoint?
 2. What’s the difference between data drift and concept drift?
-3. Prefer IAM roles or long-lived Bedrock API keys for a Lambda caller — why?
+3. Prefer IAM roles or long-lived Bedrock API keys for a Lambda caller: why?
 
 ## 4. Concept refresh
 
 | Topic | Refresh focus |
 |---|---|
-| [10 — Monitoring](../topics/10-monitoring-inference-and-performance.md) | GenAI observability; drift; A/B; agent failures; FM evals |
-| [11 — Cost / perf](../topics/11-cost-and-performance-optimization.md) | Instance families; AgentCore Observability; X-Ray; tokens/embeddings/vectors |
-| [12 — Security](../topics/12-securing-ml-ai-workloads.md) | Inspector; least privilege; CloudTrail/Config; VPC; Guardrails; Bedrock creds |
+| [10: Monitoring](../topics/10-monitoring-inference-and-performance.md) | GenAI observability; drift; A/B; agent failures; FM evals |
+| [11: Cost / perf](../topics/11-cost-and-performance-optimization.md) | Instance families; AgentCore Observability; X-Ray; tokens/embeddings/vectors |
+| [12: Security](../topics/12-securing-ml-ai-workloads.md) | Inspector; least privilege; CloudTrail/Config; VPC; Guardrails; Bedrock creds |
 
 **C02 GenAI callouts:** agent coordination monitoring, FM eval monitoring, AgentCore Observability, token/embedding/vector cost, Bedrock API keys vs IAM, Guardrails / sensitive data protection.
 
@@ -49,19 +51,19 @@ By the end of this workbook you can:
 
 **R1.** List monitoring layers from infra → GenAI/agents (at least five).
 
-**R2.** SageMaker production variants 90/10 — what are you measuring and for how long (qualitatively)?
+**R2.** SageMaker production variants 90/10: what are you measuring and for how long (qualitatively)?
 
-**R3.** Agent failure modes: tool failure, coordination failure, truncated streaming, looping — one symptom each.
+**R3.** Agent failure modes: tool failure, coordination failure, truncated streaming, looping: one symptom each.
 
 **R4.** Name three GenAI cost drivers beyond “EC2 instance hours.”
 
 **R5.** Map control → service: container CVE scan; audit API calls; config drift of IAM; secret for API key; block toxic output.
 
-**R6.** Encryption at rest and in transit — where do keys and TLS show up for S3 + SageMaker + Bedrock paths?
+**R6.** Encryption at rest and in transit: where do keys and TLS show up for S3 + SageMaker + Bedrock paths?
 
 ## 6. Worked → guided → independent practice
 
-### Worked example — ops pack for fraud endpoint + Bedrock agent
+### Worked example: ops pack for fraud endpoint + Bedrock agent
 
 ```text
 Fraud endpoint
@@ -107,19 +109,25 @@ Write an **ops + security checklist** (one page) for a system you choose (ML end
 
 ## 8. Hands-on labs
 
-### Lab A — Monitor
+### Lab A: Monitor
+
+Drift on the [B5](../../build.md#b5) classifier is real, not simulated. What I write about now doesn't look like 2011.
 
 - [ ] Enable detailed endpoint or Bedrock/app metrics; create p99 latency + error alarms
 - [ ] (Optional) Model Monitor baseline + schedule; or document how you would inject drift
 - [ ] Split traffic or simulate dual prompt route; compare metrics
 
-### Lab B — Cost / observability
+### Lab B: Cost / observability
+
+Put the dashboard on the [B8](../../build.md#b8) stack.
 
 - [ ] Build a simple dashboard: latency, errors, $/day or token count
 - [ ] Trace one request path (X-Ray or AgentCore/CloudWatch traces)
 - [ ] Estimate token + embedding + vector storage cost for a stated QPS
 
-### Lab C — Secure
+### Lab C: Secure
+
+The IAM and Guardrail pieces here are the lock-it-down half of [B8](../../build.md#b8).
 
 - [ ] Draft least-privilege IAM policy sketches for train job vs invoke Lambda
 - [ ] Enable or describe Guardrail on a Bedrock app; test a blocked prompt
@@ -155,7 +163,7 @@ Write an **ops + security checklist** (one page) for a system you choose (ML end
 
 1. Model quality, drift, latency SLO, GenAI tokens/Guardrails can fail while CPU is fine.  
 2. Data drift = input distribution shift; concept drift = relationship to label/outcome changes.  
-3. IAM roles — temporary creds, no long-lived secrets in compute.
+3. IAM roles: temporary creds, no long-lived secrets in compute.
 
 **Retrieval**
 
@@ -176,7 +184,7 @@ Write an **ops + security checklist** (one page) for a system you choose (ML end
 **Scenarios**
 
 **S1.** Feature distribution vs baseline; label delay / concept drift; segment performance; data pipeline bugs; adversary shift.  
-**S2.** Max iterations, tool error loops, missing stop conditions — cap steps, fix tools, add Guardrails/timeouts, monitor tokens/session.  
+**S2.** Max iterations, tool error loops, missing stop conditions: cap steps, fix tools, add Guardrails/timeouts, monitor tokens/session.  
 **S3.** Incremental ingest, dedupe, chunk wisely, cheaper embed model, lifecycle delete, smaller index, cache, sync only changed docs.  
 **S4.** Separate SSO roles; project prefixes; Studio in dev account; prod invoke via pipeline roles; SCPs; no `bedrock:*` in prod human role.  
 **S5.** Router or aliases with traffic split; equal samples; Guardrails both arms; eval metrics + business KPI; rollback plan; privacy-safe logging.

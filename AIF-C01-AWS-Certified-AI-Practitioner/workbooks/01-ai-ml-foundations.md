@@ -1,21 +1,23 @@
 ---
 layout: default
-title: "Workbook 01 — AI/ML Foundations"
+title: "Workbook 01: AI/ML Foundations"
 ---
 
-# Workbook 01 — AI/ML Foundations
+# Workbook 01: AI/ML Foundations
 
 **Covers:** [topics/01](../topics/01-ai-ml-terminology-and-concepts.md) · [02](../topics/02-ai-use-cases-and-technique-selection.md) · [03](../topics/03-ai-ml-lifecycle-and-mlops-basics.md)  
-**Domain:** 1 — Fundamentals of AI and ML (20%)  
-**Prerequisites:** Read cert [README](../README.md) once; skim topics 01–03. Cloud/SWE background assumed; no ML coding required.  
-**Estimated time:** 3–4 hours  
+**Domain:** 1, Fundamentals of AI and ML (20%)  
+**Prerequisites:** Read cert [README](../README.md) once; skim topics 01-03. Cloud/SWE background assumed; no ML coding required.  
+**Estimated time:** 3-4 hours  
 **Nav:** [Workbooks home](./README.md) · [Punch list](../PUNCH-LIST.md)
+
+This is the vocabulary and judgment layer. Nothing here is hard, but everything later leans on it. If I can't sort a scenario into prediction vs generation vs rules in a few seconds, Domains 2 and 3 are going to hurt. So: reps.
 
 ---
 
 ## Learning objectives
 
-By the end of this workbook you can:
+By the end of this one, I want to be able to:
 
 1. Distinguish AI, ML, DL, GenAI, and agentic AI in one sentence each, and place them in the hierarchy.
 2. Classify a scenario as supervised, unsupervised, or reinforcement learning, and as training vs inference.
@@ -27,7 +29,7 @@ By the end of this workbook you can:
 
 ## Activate prior knowledge
 
-Answer in 2–3 minutes each (no notes):
+Two or three minutes each, no notes. Just get your own experience on the table first:
 
 1. In your last project that “used AI,” was it **prediction**, **generation**, or **rules**? How do you know?
 2. What is one task at work that must be **exact** (not probabilistic)? Would you use ML there?
@@ -35,7 +37,7 @@ Answer in 2–3 minutes each (no notes):
 
 ---
 
-## Concept refresh (do not paste notes — skim links)
+## Concept refresh (skim the links; don't paste notes)
 
 | Idea | One-liner | Deep dive |
 |---|---|---|
@@ -51,7 +53,7 @@ Answer in 2–3 minutes each (no notes):
 
 ## Retrieval practice (closed-book)
 
-Write answers before opening the answer key.
+Write your answers down before you even think about the answer key. Wrong answers here are cheap. Wrong answers on exam day aren't.
 
 1. Draw or list the AI → ML → DL → FM/GenAI → agentic hierarchy.
 2. Training vs inference: which is usually more expensive compute *per run*, and which runs continuously in production APIs?
@@ -68,7 +70,7 @@ Write answers before opening the answer key.
 
 ## Worked example → guided → independent
 
-### Worked example (study this)
+### Worked example (study this one)
 
 **Scenario:** An insurer wants to flag claims that are likely fraudulent *before* adjusters review them. Historical claims have “fraud / not fraud” labels. Volume is high; false negatives are costly.
 
@@ -86,7 +88,7 @@ Write answers before opening the answer key.
 
 ### Guided practice
 
-Complete the blanks, then check the answer key.
+Fill in the blanks, then check the answer key.
 
 **G1.** A retailer wants groups of shoppers who “behave alike” for campaigns. No target label exists.  
 Technique: ________ | Learning type: ________ | Trap to avoid: ________
@@ -103,13 +105,13 @@ Technique: ________ | Learning type: ________ | Trap to avoid: ________
 
 - [ ] **I1.** Write a 5-row decision table: business need → technique (reg/clf/cluster/GenAI/agentic) → AWS service → one reason *not* to use an FM.
 - [ ] **I2.** Map your current (or a fictional) product through the six lifecycle stages. Mark where metrics are defined and where monitoring lives.
-- [ ] **I3.** For each: Transcribe, Comprehend, Lex, Polly, Bedrock, SageMaker — write one sentence “reach for this when…”.
+- [ ] **I3.** For each of Transcribe, Comprehend, Lex, Polly, Bedrock, SageMaker, write one sentence “reach for this when…”.
 
 ---
 
 ## Scenario / decision exercises
 
-Mark your choice, then justify in one line.
+Pick one, then justify it in a single line. If you can't justify it, you guessed.
 
 **S1.** CFO wants an AI that “always calculates the correct VAT.”  
 - [ ] A) Fine-tune an LLM on tax docs  
@@ -137,7 +139,7 @@ Mark your choice, then justify in one line.
 - [ ] C) Amazon Quick  
 
 **S6.** Model metric F1 is good, but CSAT dropped. Next step?  
-- [ ] A) Ignore CSAT — F1 is enough for AIF  
+- [ ] A) Ignore CSAT; F1 is enough for AIF  
 - [ ] B) Investigate business/UX metrics and monitoring  
 - [ ] C) Immediately pre-train a new FM from scratch  
 
@@ -145,16 +147,16 @@ Mark your choice, then justify in one line.
 
 ## Hands-on lab
 
-### Option A — AWS Console (~45–60 min)
+### Option A: AWS Console (~45-60 min)
 
 Prereq: AWS account with permission to open service consoles (read-only is fine).
 
 - [ ] **L1.** Open [Amazon SageMaker AI](https://docs.aws.amazon.com/sagemaker/latest/dg/whatis.html) console → note Studio / JumpStart entry points (do not need to launch training).
-- [ ] **L2.** Open [Amazon Bedrock](https://docs.aws.amazon.com/bedrock/latest/userguide/what-is-bedrock.html) → Model access / playground area; list 3 model providers you see (or note Region availability).
+- [ ] **L2.** Open [Amazon Bedrock](https://docs.aws.amazon.com/bedrock/latest/userguide/what-is-bedrock.html) → Model access / playground area; list 3 model providers you see (or note Region availability). This is the same playground [B1](../../build.md#b1) lives in, so get comfortable.
 - [ ] **L3.** From the console search bar, open Transcribe, Comprehend, Lex, Polly pages (or docs). For each, write the one-line capability in your notes.
 - [ ] **L4.** Sketch on paper: “Call recording → Transcribe → Comprehend sentiment → dashboard.” Label which stages are AI services vs your app.
 
-### Option B — Paper architecture (no account)
+### Option B: Paper architecture (no account)
 
 - [ ] Draw a system that: (1) predicts equipment failure days remaining (regression), (2) clusters plants by failure pattern, (3) offers a GenAI assistant over maintenance manuals. Label technique + AWS service per box. Mark training vs inference paths.
 
@@ -166,7 +168,7 @@ Prereq: AWS account with permission to open service consoles (read-only is fine)
 |---|---|
 | GenAI for every problem | Prefer purpose-built APIs for narrow perception; ML for tabular prediction |
 | Training = inference | Training fits weights; inference serves predictions/generations |
-| Clustering needs labels | Unsupervised — labels would make it classification |
+| Clustering needs labels | Unsupervised. Labels would make it classification. |
 | Accuracy alone | Imbalanced data: check precision/recall/F1 + business KPI |
 | Bedrock when you need custom host control | SageMaker / JumpStart for self-hosted weights |
 | Skip business metrics | Model metrics ≠ ROI / CSAT / cost per decision |
@@ -176,7 +178,7 @@ Prereq: AWS account with permission to open service consoles (read-only is fine)
 
 ## Reflection / teach it back
 
-Without notes, explain to a teammate (or record yourself, 3–5 min):
+No notes. Explain it to a teammate, or record yourself for 3-5 minutes. If you stumble, that's the gap:
 
 1. The hierarchy and when you’d pick GenAI vs classical ML.  
 2. One service-selection story (Transcribe vs LLM).  
@@ -196,7 +198,7 @@ Without notes, explain to a teammate (or record yourself, 3–5 min):
 - [ ] Retrieval section ≥8/10 correct before answer key review
 - [ ] Hands-on or paper lab complete
 
-**Exit:** Checklist done → mark Domain 1 items on [PUNCH-LIST.md](../PUNCH-LIST.md) → proceed to [Workbook 02](./02-genai-fundamentals.md).
+**Exit:** checklist done → mark Domain 1 items on [PUNCH-LIST.md](../PUNCH-LIST.md) → proceed to [Workbook 02](./02-genai-fundamentals.md).
 
 ---
 
@@ -206,11 +208,11 @@ Without notes, explain to a teammate (or record yourself, 3–5 min):
 <summary>Retrieval practice</summary>
 
 1. AI → ML → DL → FMs/LLMs/GenAI apps → agentic (tools, memory, orchestration).  
-2. Training is expensive per job; inference runs ongoing (real-time/batch/async) — both cost money, but production inference is continuous.  
+2. Training is expensive per job; inference runs ongoing (real-time/batch/async). Both cost money, but production inference is continuous.  
 3. Unsupervised; clustering.  
 4. Regression (continuous).  
 5. Amazon Transcribe (optionally + Comprehend/Bedrock later).  
-6. Rules / deterministic system — not probabilistic AI.  
+6. Rules / deterministic system. Not probabilistic AI.  
 7. Prep/features → train/select → evaluate → deploy → monitor/retrain (wording may vary).  
 8. Need custom weights, instance control, VPC/network posture, or JumpStart open models you host.  
 9. Majority class dominates accuracy; you can miss almost all fraud and still look “accurate.”  
@@ -231,12 +233,12 @@ Without notes, explain to a teammate (or record yourself, 3–5 min):
 <details>
 <summary>Scenarios</summary>
 
-**S1.** B — exact VAT is deterministic.  
-**S2.** A — generation/summarization; HITL for quality.  
-**S3.** B — unlabeled segments = clustering.  
-**S4.** B — purpose-built speech-to-text.  
-**S5.** B — SageMaker control plane.  
-**S6.** B — pair model + business metrics; investigate.
+**S1.** B. Exact VAT is deterministic.  
+**S2.** A. Generation/summarization; HITL for quality.  
+**S3.** B. Unlabeled segments = clustering.  
+**S4.** B. Purpose-built speech-to-text.  
+**S5.** B. SageMaker control plane.  
+**S6.** B. Pair model + business metrics; investigate.
 
 </details>
 

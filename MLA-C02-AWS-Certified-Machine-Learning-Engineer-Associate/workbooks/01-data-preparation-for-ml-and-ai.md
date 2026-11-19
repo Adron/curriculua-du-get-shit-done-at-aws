@@ -1,13 +1,15 @@
 ---
 layout: default
-title: "Workbook 01 — Data preparation for ML and AI"
+title: "Workbook 01: Data preparation for ML and AI"
 ---
 
-# Workbook 01 — Data preparation for ML and AI
+# Workbook 01: Data preparation for ML and AI
 
 **Domain 1 (28%)** · Topics [01](../topics/01-data-collection-and-storage.md) · [02](../topics/02-data-transformation-feature-engineering.md) · [03](../topics/03-data-quality-validation-and-bias.md)
 
-Builder focus: **ingest → transform → validate** as a pipeline you could express in Glue jobs, Feature Store ingest, and Bedrock Knowledge Base sync — not one-off console clicks.
+Builder focus: **ingest → transform → validate**, as a pipeline you could actually express in Glue jobs, Feature Store ingest, and Bedrock Knowledge Base sync. Not a pile of one-off console clicks.
+
+Domain 1 is the heaviest chunk of the exam at 28%, and it's where most real ML work lives anyway. For me this whole workbook is [B4](../../build.md#b4): getting fifteen years of blog posts into a shape I can trust.
 
 ---
 
@@ -25,13 +27,13 @@ By the end of this workbook you can:
 
 | Item | Detail |
 |---|---|
-| Prerequisites | Read topics 01–03; basic S3 + IAM; optional AWS account |
-| Estimated time | **6–8 hours** (split across weeks 1–2) |
+| Prerequisites | Read topics 01-03; basic S3 + IAM; optional AWS account |
+| Estimated time | **6-8 hours** (split across weeks 1-2) |
 | Materials | Topic notes, this workbook, optional Glue/SageMaker/Bedrock console or CLI |
 
 ## 3. Activate prior knowledge
 
-Answer in 1–2 sentences each (no notes):
+Answer in 1-2 sentences each. No notes, no peeking:
 
 1. Why might Parquet beat CSV for a wide training table on S3?
 2. When would you pick **online** Feature Store over the offline Parquet store?
@@ -39,27 +41,27 @@ Answer in 1–2 sentences each (no notes):
 
 ## 4. Concept refresh
 
-Skim — do **not** paste topic notes here. Follow links, then close them for §5.
+Skim them. Do **not** paste the topic notes in here. Follow the links, then close them before §5.
 
 | Topic | Refresh focus |
 |---|---|
-| [01 — Collection & storage](../topics/01-data-collection-and-storage.md) | Storage matrix; Kinesis/Flink/Kafka; vector DBs; Feature Store ingest |
-| [02 — Transform & FE](../topics/02-data-transformation-feature-engineering.md) | Glue/EMR/Wrangler; embeddings; RAG chunking; PII; fine-tune data prep |
-| [03 — Quality, bias](../topics/03-data-quality-validation-and-bias.md) | Glue DQ; Clarify-style bias; imbalance; AI training integrity |
+| [01: Collection & storage](../topics/01-data-collection-and-storage.md) | Storage matrix; Kinesis/Flink/Kafka; vector DBs; Feature Store ingest |
+| [02: Transform & FE](../topics/02-data-transformation-feature-engineering.md) | Glue/EMR/Wrangler; embeddings; RAG chunking; PII; fine-tune data prep |
+| [03: Quality, bias](../topics/03-data-quality-validation-and-bias.md) | Glue DQ; Clarify-style bias; imbalance; AI training integrity |
 
-**C02 GenAI callouts:** vector stores (OpenSearch / pgvector / S3 vectors), embedding models, Bedrock KB chunking + metadata, anonymization for FM corpora, prompt–response pair validation.
+**C02 GenAI callouts:** vector stores (OpenSearch / pgvector / S3 vectors), embedding models, Bedrock KB chunking + metadata, anonymization for FM corpora, prompt-response pair validation.
 
 ## 5. Closed-book retrieval practice
 
-Cover §12. Write answers from memory.
+Cover §12. Write the answers from memory. Getting it wrong here is the point; that's what makes it stick.
 
 **R1.** Map each need to a store: (a) shared POSIX for multi-worker training scratch, (b) low-latency key-value features, (c) hybrid text + k-NN for RAG, (d) lake landing for Athena + offline Feature Store.
 
-**R2.** Online Feature Store updates via `PutRecord` vs batch Spark connector — which for near-real-time inference features? Which for historical point-in-time training?
+**R2.** Online Feature Store updates via `PutRecord` vs batch Spark connector: which for near-real-time inference features? Which for historical point-in-time training?
 
 **R3.** List three transform tools and one strength each (Glue, DataBrew, EMR, Data Wrangler).
 
-**R4.** Fixed-size vs semantic vs hierarchical chunking — one exam cue for each.
+**R4.** Fixed-size vs semantic vs hierarchical chunking: one exam cue for each.
 
 **R5.** Name two pre-training bias ideas (e.g., CI, DPL) and one imbalance mitigation that works for text as well as tabular.
 
@@ -67,7 +69,7 @@ Cover §12. Write answers from memory.
 
 ## 6. Worked → guided → independent practice
 
-### Worked example — fraud features + RAG corpus (same product)
+### Worked example: fraud features + RAG corpus (same product)
 
 **Scenario:** You need (1) tabular fraud features for XGBoost and (2) a support-doc RAG index for a Bedrock agent.
 
@@ -91,7 +93,7 @@ Fill the blanks:
 1. Multi-instance training needs the same file tree → prefer ______ over EBS.
 2. DynamoDB is great for ______ lookups but is **not** the exam’s primary ______ store.
 3. Train/serve skew is reduced when inference reads the same transforms via ______.
-4. Before fine-tune JSONL lands in Bedrock/SageMaker, validate ______–______ pairs and run content safety screening.
+4. Before fine-tune JSONL lands in Bedrock/SageMaker, validate ______-______ pairs and run content safety screening.
 
 ### Independent practice
 
@@ -111,19 +113,23 @@ Design a **one-page pipeline** (bullet IaC resources) for: nightly CSV drops fro
 
 ## 8. Hands-on labs
 
-### Lab A — SageMaker / Glue path (preferred)
+### Lab A: SageMaker / Glue path (preferred)
+
+My version: the blog archive markdown is the "small CSV", Glue strips the front matter, and the DQ rules are things like "every post has a date and a category" ([B4](../../build.md#b4)).
 
 - [ ] Land a small CSV on S3; convert to Parquet (Glue job or Wrangler); query with Athena
 - [ ] Create a Feature Group; batch ingest; `PutRecord` one update; contrast online vs offline read
 - [ ] Add a Glue Data Quality ruleset (completeness + uniqueness); intentionally fail one rule
 
-### Lab B — Bedrock / RAG path
+### Lab B: Bedrock / RAG path
+
+Chunk the archive and look at what comes back. This is the start of [B6](../../build.md#b6).
 
 - [ ] Create or use a Knowledge Base over S3 docs; note chunking strategy and vector store
 - [ ] Run `Retrieve` / `RetrieveAndGenerate`; inspect chunk metadata
 - [ ] Change chunking or metadata filters; observe answer grounding change
 
-### Lab C — Paper architecture fallback (no account)
+### Lab C: Paper architecture fallback (no account)
 
 - [ ] Draw the fraud + RAG dual pipeline from the worked example as a diagram
 - [ ] List CFN/CDK resource types you would create (S3, Glue Job, Feature Group, OpenSearch/KB, IAM roles)
@@ -138,7 +144,7 @@ Design a **one-page pipeline** (bullet IaC resources) for: nightly CSV drops fro
 - [ ] Ignoring metadata size limits on vector chunks
 - [ ] Embedding PII without redaction
 - [ ] Fixing imbalance only with accuracy (misleading on rare classes)
-- [ ] Skipping prompt–response validation for FM fine-tune sets
+- [ ] Skipping prompt-response validation for FM fine-tune sets
 
 ## 10. Reflection
 
@@ -170,21 +176,21 @@ Design a **one-page pipeline** (bullet IaC resources) for: nightly CSV drops fro
 **R3.** Glue = serverless Spark ETL/catalog; DataBrew = visual recipes; EMR = heavy custom Spark; Wrangler = interactive FE → Processing/Feature Store.  
 **R4.** Fixed-size = simple/token windows; semantic = meaning-aware splits; hierarchical = child hit → parent context.  
 **R5.** CI / DPL (or KL/JSD/TVD); stratified split, augment, resample, reweight, collect minority data.  
-**R6.** Validate prompt–response pairs, empty/truncated targets, content safety screening for GenAI corpora.
+**R6.** Validate prompt-response pairs, empty/truncated targets, content safety screening for GenAI corpora.
 
 **Guided**
 
 1. EFS  
 2. key-value feature; vector  
 3. Feature Store (shared transform definitions / online features)  
-4. prompt–response
+4. prompt-response
 
 **Scenarios**
 
 **S1.** Kinesis/MSK → Flink/Lambda/Spark streaming → Feature Store `PutRecord` (or sync path) → online store for endpoint.  
 **S2.** Redact in Glue/Wrangler/Comprehend-PII **before** embedding/KB sync; never embed raw objects.  
 **S3.** Stratify splits; oversample/augment minority or class weights; track minority recall/F1 not raw accuracy.  
-**S4.** CSV+OpenSearch skips embeddings, chunking, schema, and cost control — use Parquet lake + embed + KB/OpenSearch k-NN with metadata.  
-**S5.** Reject for live scoring — use **online** store; offline is for training/analytics.
+**S4.** CSV+OpenSearch skips embeddings, chunking, schema, and cost control: use Parquet lake + embed + KB/OpenSearch k-NN with metadata.  
+**S5.** Reject for live scoring: use **online** store; offline is for training/analytics.
 
 **Independent (rubric):** Nightly vendor CSV → S3 → Glue to Parquet → DQ gate → train Feature Store offline; FAQ docs → redact → KB sync EventBridge; on DQ fail, SNS + skip downstream; IaC for jobs, roles, Feature Group, KB.

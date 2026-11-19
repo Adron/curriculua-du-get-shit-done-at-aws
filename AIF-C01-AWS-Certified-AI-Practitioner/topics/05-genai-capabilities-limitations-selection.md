@@ -1,34 +1,34 @@
-# 05 — GenAI capabilities, limitations, and selection
+---
+title: "05: GenAI capabilities, limitations, and selection"
+---
+
+# 05: GenAI capabilities, limitations, and selection
 
 **Domain 2 (24%) · Task Statement 2.2**
 
-## What it is
+An honest look at what GenAI is good at, where it falls over (hallucinations, mainly), how to pick a model for a real business problem, and which business metrics prove it was worth it.
 
-Honest appraisal of what GenAI does well, where it fails (especially hallucinations), how to choose a model for a business problem, and which business metrics prove value.
+The exam keeps setting up "use GenAI vs don't" and "which model factors matter" scenarios. The trick is to name the limitations **without** throwing GenAI out entirely. The right answer is usually "yes, and mitigate it": RAG, Guardrails, human-in-the-loop, evals. That's also how I'd pitch it to a client.
 
-## Why it matters for AIF-C01
-
-Scenario questions pit “use GenAI” vs “don’t” and “which model factors matter.” You must cite limitations without rejecting GenAI entirely — mitigate with RAG, Guardrails, HITL, evals.
-
-## What to know for the exam
+## What to know
 
 ### Advantages of GenAI
 
-- **Adaptability** — one FM → many tasks via prompts
-- **Responsiveness / conversational** UX
-- **Content generation** — drafts, code, media, summaries
-- Fast experimentation; lower barrier vs training from scratch
+- **Adaptability**: one FM, many tasks, just by changing the prompt.
+- **Responsive, conversational** UX.
+- **Content generation**: drafts, code, media, summaries.
+- Fast experimentation and a much lower barrier than training from scratch.
 
-### Disadvantages / limitations
+### Disadvantages and limitations
 
 | Limitation | Implication |
 |---|---|
-| **Hallucinations** | Fluent but false statements |
-| Interpretability | Hard to explain why a token was chosen |
+| **Hallucinations** | Fluent, confident, false |
+| Interpretability | Hard to explain why a given token was chosen |
 | Inaccuracy | Needs grounding, validation, citations |
 | Nondeterminism | Same prompt can vary (temperature/sampling) |
-| Data leakage / IP / privacy risks | Need controls (see Domains 4–5) |
-| Cost & latency at scale | Token bills; long contexts |
+| Data leakage / IP / privacy risks | Needs controls (see Domains 4-5) |
+| Cost and latency at scale | Token bills; long contexts |
 
 **Hallucination mitigation (preview of D3/D5):** RAG grounding, citations, Guardrails contextual grounding checks, output validation, human review, lower temperature for factual tasks.
 
@@ -49,36 +49,37 @@ Scenario questions pit “use GenAI” vs “don’t” and “which model facto
 
 Cross-domain performance, **ROI**, efficiency, conversion rate, ARPU, accuracy, customer lifetime value, task completion, CSAT, cost per interaction.
 
-Pair **model metrics** (toxicity, groundedness) with **business KPIs** — exam guide expects both.
+**Pair model metrics (toxicity, groundedness) with business KPIs.** The exam guide expects both, and so does anyone signing the check.
 
-## AWS services involved
+## AWS services in play
 
-- **Amazon Bedrock** — choose among many FMs; evaluate with Model Evaluation; ground with Knowledge Bases; filter with Guardrails
-- **SageMaker AI** — when you need custom host/fine-tune/eval pipelines
-- **Amazon Quick** — business-user GenAI over enterprise data (selection by persona)
+- **Amazon Bedrock**: pick from many FMs, evaluate with Model Evaluation, ground with Knowledge Bases, filter with Guardrails.
+- **SageMaker AI**: when you need custom hosting, fine-tuning, or eval pipelines.
+- **Amazon Quick**: business-user GenAI over enterprise data (selection by persona).
 
-## Practical study tips
+## Hands-on
 
-- For every “GenAI proposal,” list one advantage, one limitation, one mitigation.
-- Selection cheat sheet: compliance-sensitive + enterprise data → Bedrock + RAG + Guardrails before fine-tuning.
-- Nondeterminism ≠ bug; control with temperature/top-p and eval harnesses.
+- For every GenAI proposal you read, write down one advantage, one limitation, and one mitigation.
+- Run the same factual question through two or three models in the Bedrock playground and compare answers, latency, and cost. That's [B1](../../build.md#b1).
+- Cheat sheet: compliance-sensitive + enterprise data → Bedrock + RAG + Guardrails, **before** you even think about fine-tuning.
 
-## Common exam traps
+## Exam traps
 
-- Claiming GenAI is always accurate because it “sounds confident.”
-- Picking the largest model ignoring cost/latency.
-- Skipping business metrics (“model accuracy is enough”).
+- Claiming GenAI is accurate because it "sounds confident."
+- Picking the biggest model and ignoring cost and latency.
+- Skipping business metrics ("model accuracy is enough").
 - Using GenAI where a deterministic system or purpose-built AI service is required.
+- Treating nondeterminism as a bug. It isn't. Control it with temperature/top-p and eval harnesses.
 
 ## Exam guide mapping
 
-- **Task Statement 2.2** — Capabilities and limitations of GenAI (advantages; disadvantages including hallucinations; selection factors; business value metrics).
+- **Task Statement 2.2**: Capabilities and limitations of GenAI (advantages; disadvantages including hallucinations; selection factors; business value metrics).
 
 ## Research links
 
-- https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01.html
-- https://docs.aws.amazon.com/bedrock/latest/userguide/what-is-bedrock.html
-- https://docs.aws.amazon.com/bedrock/latest/userguide/guardrails-contextual-grounding-check.html
-- https://aws.amazon.com/ai/responsible-ai/
-- https://docs.aws.amazon.com/bedrock/latest/userguide/guardrails.html
-- https://aws.amazon.com/certification/certified-ai-practitioner/
+- <https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01.html>
+- <https://docs.aws.amazon.com/bedrock/latest/userguide/what-is-bedrock.html>
+- <https://docs.aws.amazon.com/bedrock/latest/userguide/guardrails-contextual-grounding-check.html>
+- <https://aws.amazon.com/ai/responsible-ai/>
+- <https://docs.aws.amazon.com/bedrock/latest/userguide/guardrails.html>
+- <https://aws.amazon.com/certification/certified-ai-practitioner/>

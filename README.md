@@ -1,32 +1,23 @@
-# Adron's AWS Curriculum
+# curriculum-2027
 
-These are certifications I intend to take and have before mid-2027.
+My path through three AWS AI certifications before mid-2027: **AIF-C01 → MLA-C02 → AIP-C01**.
 
-## Jekyll / GitHub Pages
+**Read it as a site:** <https://adron.github.io/curriculum-2027/>. Hacker theme, progress tracking, the works. The site home is [index.md](index.md).
 
-| | |
-|---|---|
-| **Rendered site** | [https://adron.github.io/curriculum-2027/](https://adron.github.io/curriculum-2027/) |
-| **Site source** | [index.md](index.md) |
-| **This README (repo)** | [https://github.com/Adron/curriculum-2027/blob/main/README.md](https://github.com/Adron/curriculum-2027/blob/main/README.md) |
-| **Repository** | [https://github.com/Adron/curriculum-2027](https://github.com/Adron/curriculum-2027) |
-
-Source path overview: [curriculum.md](curriculum.md)
-
-## Certification study packs
-
-Each folder has a `README.md`, a `PUNCH-LIST.md`, researched `topics/` deep-dives, and a `workbooks/` section for active practice.
-
-| Priority | Folder | Exam | Workbooks |
+| # | Study pack | Exam | Level |
 |---|---|---|---|
-| 1 | [AIF-C01-AWS-Certified-AI-Practitioner](AIF-C01-AWS-Certified-AI-Practitioner/) | AIF-C01 | [workbooks](AIF-C01-AWS-Certified-AI-Practitioner/workbooks/) |
-| 2 | [MLA-C02-AWS-Certified-Machine-Learning-Engineer-Associate](MLA-C02-AWS-Certified-Machine-Learning-Engineer-Associate/) | MLA-C02 | [workbooks](MLA-C02-AWS-Certified-Machine-Learning-Engineer-Associate/workbooks/) |
-| 3 | [AIP-C01-AWS-Certified-Generative-AI-Developer-Professional](AIP-C01-AWS-Certified-Generative-AI-Developer-Professional/) | AIP-C01 | [workbooks](AIP-C01-AWS-Certified-Generative-AI-Developer-Professional/workbooks/) |
+| 1 | [AIF-C01-AWS-Certified-AI-Practitioner](AIF-C01-AWS-Certified-AI-Practitioner/) | AIF-C01 | Foundational |
+| 2 | [MLA-C02-AWS-Certified-Machine-Learning-Engineer-Associate](MLA-C02-AWS-Certified-Machine-Learning-Engineer-Associate/) | MLA-C02 | Associate |
+| 3 | [AIP-C01-AWS-Certified-Generative-AI-Developer-Professional](AIP-C01-AWS-Certified-Generative-AI-Developer-Professional/) | AIP-C01 | Professional |
 
-**Path order:** AIF → MLA → AIP (do not skip).
+Each pack has a `README.md`, a `PUNCH-LIST.md`, `topics/` notes, and `workbooks/`. The running project that ties all three together is in [build.md](build.md).
 
-## Original curriculum notes
+## Running the site locally
 
-- [AIF-C01 AWS Certified AI Practitioner.md](AIF-C01%20AWS%20Certified%20AI%20Practitioner.md)
-- [MLA-C02 AWS Certified Machine Learning Engineer – Associate.md](MLA-C02%20AWS%20Certified%20Machine%20Learning%20Engineer%20%E2%80%93%20Associate.md)
-- [AIP-C01 AWS Certified Generative AI Developer – Professional.md](AIP-C01%20AWS%20Certified%20Generative%20AI%20Developer%20%E2%80%93%20Professional.md)
+```sh
+bundle install
+bundle exec jekyll serve
+# http://localhost:4000/curriculum-2027/
+```
+
+The theme is custom (no remote theme): `_layouts/default.html`, `assets/css/hacker.css`, and `assets/js/term.js`. Checkboxes on punch lists and topics save to your browser's localStorage.

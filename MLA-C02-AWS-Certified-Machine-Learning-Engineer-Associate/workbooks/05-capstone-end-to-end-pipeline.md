@@ -1,21 +1,33 @@
 ---
 layout: default
-title: "Workbook 05 — Capstone: end-to-end pipeline"
+title: "Workbook 05: Capstone, end-to-end ML or RAG pipeline"
 ---
 
-# Workbook 05 — Capstone: end-to-end ML or RAG pipeline
+# Workbook 05: Capstone, end-to-end ML or RAG pipeline
 
-**All domains** · Integrates topics [01](../topics/01-data-collection-and-storage.md)–[12](../topics/12-securing-ml-ai-workloads.md)
+**All domains** · Integrates topics [01](../topics/01-data-collection-and-storage.md) through [12](../topics/12-securing-ml-ai-workloads.md)
 
-Builder focus: ship a **small but complete** path — **data → train/tune or FM customize → deploy → monitor → secure** — with IaC mindset and ops tradeoffs. This is your readiness gate before the official practice exam (**≥80%**).
+Builder focus: ship a **small but complete** path, **data → train/tune or FM customize → deploy → monitor → secure**, with an IaC mindset and real ops tradeoffs. This is the readiness gate before the official practice exam (**≥80%**).
+
+Small is fine. Complete is the point. A notebook model that never gets deployed, watched, or secured doesn't count.
 
 Pick **one** track (or a thin hybrid):
 
 | Track | Core path |
 |---|---|
-| **A — Traditional ML** | S3/Feature Store → SageMaker train/AMT → Registry → endpoint → Model Monitor |
-| **B — RAG / FM** | S3 corpus → chunk/embed/KB → Bedrock FM (+ optional agent) → eval → Guardrails → observability |
-| **C — Hybrid** | Tabular model for routing + Bedrock RAG/agent for generation |
+| **A: Traditional ML** | S3/Feature Store → SageMaker train/AMT → Registry → endpoint → Model Monitor |
+| **B: RAG / FM** | S3 corpus → chunk/embed/KB → Bedrock FM (+ optional agent) → eval → Guardrails → observability |
+| **C: Hybrid** | Tabular model for routing + Bedrock RAG/agent for generation |
+
+**My pick is Track C**, because the build already is one. The [B5](../../build.md#b5) tag classifier is the tabular-ish model, the [B6](../../build.md#b6) knowledge base is the RAG side, and the capstone is just proving all of [B4](../../build.md#b4) through [B8](../../build.md#b8) holds together as one system:
+
+| Capstone stage | Build milestone |
+|---|---|
+| Data plane: archive → S3 → Parquet → DQ gate | [B4](../../build.md#b4) |
+| Model plane: tag classifier, train + AMT + eval | [B5](../../build.md#b5) |
+| RAG side: chunking, embeddings, KB, recall@k | [B6](../../build.md#b6) |
+| Deploy plane: endpoint, Pipelines, Registry, CI/CD in IaC | [B7](../../build.md#b7) |
+| Ops plane: monitor, alarms, IAM, VPC endpoints, KMS | [B8](../../build.md#b8) |
 
 ---
 
@@ -33,8 +45,8 @@ By the end of this capstone you can:
 
 | Item | Detail |
 |---|---|
-| Prerequisites | Workbooks 01–04 substantially complete; punch list mostly checked |
-| Estimated time | **8–12 hours** (week 8; can span two weekends) |
+| Prerequisites | Workbooks 01-04 substantially complete; punch list mostly checked |
+| Estimated time | **8-12 hours** (week 8; can span two weekends) |
 | Exit criteria | Capstone design + lab/paper done; Skill Builder practice **≥80%** |
 
 ## 3. Activate prior knowledge
@@ -43,7 +55,7 @@ Without notes, list in order the stages of a production ML **or** RAG pipeline f
 
 ## 4. Concept refresh
 
-Revisit only what your track needs — links, not paste:
+Revisit only what your track needs. Links, not a paste:
 
 | Domain | Topics | Capstone use |
 |---|---|---|
@@ -68,7 +80,7 @@ Revisit only what your track needs — links, not paste:
 
 ## 6. Worked → guided → independent practice
 
-### Worked example — Track C mini hybrid (support product)
+### Worked example: Track C mini hybrid (support product)
 
 ```text
 Data
@@ -94,7 +106,7 @@ Operate / secure
 
 **Tradeoffs noted:** Classifier stays classic ML (cheaper/interpretable routing); knowledge stays RAG (weekly churn); no full FM fine-tune until style metrics demand it.
 
-### Guided practice — fill your architecture canvas
+### Guided practice: fill your architecture canvas
 
 Copy and complete:
 
@@ -106,18 +118,18 @@ Copy and complete:
 6. **Ops plane:** metrics, cost, security ______  
 7. **Top risk + mitigation:** ______  
 
-### Independent practice — deliverables (required)
+### Independent practice: deliverables (required)
 
 Produce all four:
 
 - [ ] **Architecture diagram** (boxes/arrows; services labeled)
 - [ ] **Pipeline stages** as a numbered runbook (including CI/CD and rollback)
-- [ ] **Tradeoff memo** (½ page): latency vs cost vs quality vs security — three decisions you made
+- [ ] **Tradeoff memo** (½ page): latency vs cost vs quality vs security: three decisions you made
 - [ ] **Gap list**: punch-list items still weak → schedule drills before practice exam
 
 ## 7. Scenario / decision exercises
 
-Defend decisions under pressure (exam-style):
+Defend your decisions under pressure, exam-style:
 
 **S1.** CFO freezes GPU spend. How does your design degrade gracefully for two weeks?
 
@@ -131,7 +143,9 @@ Defend decisions under pressure (exam-style):
 
 ## 8. Hands-on labs
 
-### Lab — build the thinnest vertical slice
+### Lab: build the thinnest vertical slice
+
+Thinnest possible slice that still touches every plane. You can thicken it later; you can't fake having built it.
 
 **Track A**
 
@@ -147,7 +161,7 @@ Defend decisions under pressure (exam-style):
 - [ ] Guardrail attached; blocked example recorded  
 - [ ] Dashboard or written metrics: latency, empty retrieve, tokens  
 
-**Track C**
+**Track C** (my track: [B5](../../build.md#b5) classifier + [B6](../../build.md#b6) KB behind one API sketch)
 
 - [ ] Minimal classifier **or** mock router + one Bedrock RAG call behind the same API sketch  
 - [ ] Document how traffic would split and how you’d evaluate both arms  
@@ -156,7 +170,7 @@ Defend decisions under pressure (exam-style):
 
 - [ ] Full diagram + IAM role list + EventBridge triggers  
 - [ ] Pseudo-CDK/CFN resource names  
-- [ ] Tabletop drill: DQ fail, deploy fail, drift alarm, Guardrail spike — who gets paged, what rolls back  
+- [ ] Tabletop drill: DQ fail, deploy fail, drift alarm, Guardrail spike: who gets paged, what rolls back  
 
 ## 9. Misconceptions / traps
 
@@ -174,13 +188,13 @@ Defend decisions under pressure (exam-style):
 2. What would you automate first if this went to a real team repo tomorrow?
 3. Are you **≥80%** on practice exams? If not, which workbook do you revisit?
 
-## 11. Mastery checklist — exam readiness
+## 11. Mastery checklist: exam readiness
 
 - [ ] End-to-end design complete for Track A, B, or C
 - [ ] Can explain every service choice in one sentence
 - [ ] IaC + rollback + DQ/eval gates included
 - [ ] GenAI C02 topics covered if Track B/C (KB, prompts, agents, Guardrails, LLMOps)
-- [ ] Punch list Domains 1–4 reviewed; weak items drilled
+- [ ] Punch list Domains 1-4 reviewed; weak items drilled
 - [ ] Official Skill Builder practice exam **≥80%** on two attempts (or rising trend to ≥80%)
 - [ ] Schedule exam only after the above
 
@@ -188,7 +202,7 @@ Defend decisions under pressure (exam-style):
 
 **Activate (sample ML):** collect → validate/transform → train/tune → evaluate → register → deploy → monitor → retrain. **GenAI *:** embed/chunk, KB sync, prompt version, Guardrails, FM/agent eval, token cost.
 
-**Retrieval (rubric — answers vary by track)**
+**Retrieval (rubric: answers vary by track)**
 
 **R1.** Must justify Parquet/Feature Store and/or OpenSearch/pgvector/S3 vectors vs access pattern.  
 **R2.** Numeric/task thresholds + automated tests; GenAI adds prompt/eval/faithfulness gates.  
@@ -197,14 +211,14 @@ Defend decisions under pressure (exam-style):
 **R5.** Least privilege, encryption, network isolation, secrets, Guardrails/CI scan as applicable.  
 **R6.** Named prior artifact you can re-point traffic to.
 
-**Guided:** Any complete canvas that ties Domains 1–4 without hand-wavy “use SageMaker” is acceptable; review against worked hybrid.
+**Guided:** Any complete canvas that ties Domains 1-4 without hand-wavy “use SageMaker” is acceptable; review against worked hybrid.
 
 **Scenarios**
 
 **S1.** Prefer Bedrock on-demand / smaller FM / more caching / CPU models / batch deferral; pause PT/GPU HPO; keep RAG quality via retrieval not larger models.  
 **S2.** Block public access immediately; KMS; bucket policies; Config rule; CloudTrail; pipeline prevent; rotate credentials if exposed.  
 **S3.** Chunking/metadata/filters → embedding mismatch → top-k/rerank → stale docs → prompt regression → model change.  
-**S4.** Do not ship on AUC alone — business metric wins; investigate threshold/calibration/segment harm.  
+**S4.** Do not ship on AUC alone: business metric wins; investigate threshold/calibration/segment harm.  
 **S5.** Least-privilege refund tool; human approval over amount X; Guardrails for policy; full audit trail; tool-error + fraud alarms; rate limits.
 
-**Independent deliverables:** Use the mastery checklist as the grading rubric; revisit workbooks 01–04 for any blank domain in your diagram.
+**Independent deliverables:** Use the mastery checklist as the grading rubric; revisit workbooks 01-04 for any blank domain in your diagram.
