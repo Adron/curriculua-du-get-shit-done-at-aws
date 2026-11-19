@@ -4,7 +4,7 @@
 
 **Goal:** Build, deploy, and operate ML and foundation-model solutions on AWS. Counts as **Technical**. Primary builder credential for ML Consulting / AI delivery staff. Auto-recertifies AIF-C01.
 
-**Path:** [curriculum.md](curriculum.md) → [AIF-C01.md](AIF-C01.md) → **MLA-C02** → [AIP-C01.md](AIP-C01.md)
+**Path:** [curriculum.md](curriculum.md) → [AIF-C01](AIF-C01 AWS Certified AI Practitioner.md) → **MLA-C02** → [AIP-C01](AIP-C01 AWS Certified Generative AI Developer – Professional.md)
 
 > **Version note (late 2026):** Study **MLA-C02**. It adds GenAI (Bedrock, RAG), agentic AI, FM/LLM ops, and responsible AI across traditional ML and GenAI. Prefer current Skill Builder / exam-guide materials labeled MLA-C02.
 
@@ -72,7 +72,7 @@ You can design a small end-to-end ML or RAG pipeline on AWS and explain how you 
 - **Official sources first:** exam guide + Skill Builder prep plan + official practice exams.
 - **Hands-on required:** Console + IaC (CDK/Terraform/CloudFormation); reading alone will not hold.
 - **Booking:** Pearson VUE; schedule only after practice-exam threshold.
-- Passing this exam auto-recertifies [AIF-C01](AIF-C01.md).
+- Passing this exam auto-recertifies [AIF-C01](AIF-C01 AWS Certified AI Practitioner.md).
 
 ---
 
