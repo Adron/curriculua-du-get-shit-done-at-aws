@@ -2,7 +2,7 @@
 
 **Priority:** 1 of 3 · **Level:** Foundational · **Cost:** $100 · **Duration:** 2–3 weeks
 
-**Goal:** Foundational AI/ML/GenAI literacy on AWS. Counts toward Premier **Foundational** certified individuals. Vocabulary base for MLA-C02 and AIP-C01.
+**Goal:** Foundational AI/ML/GenAI literacy on AWS. Vocabulary base for MLA-C02 and AIP-C01.
 
 **Path:** [curriculum.md](curriculum.md) → **AIF-C01** → [MLA-C02](MLA-C02 AWS Certified Machine Learning Engineer – Associate.md) → [AIP-C01](AIP-C01 AWS Certified Generative AI Developer – Professional.md)
 

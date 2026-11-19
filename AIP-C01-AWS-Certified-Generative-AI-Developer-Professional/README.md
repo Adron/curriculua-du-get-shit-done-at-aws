@@ -32,7 +32,21 @@ Official pages:
 | 4 — Operational Efficiency and Optimization | **12%** | Cost, latency/throughput, GenAI monitoring |
 | 5 — Testing, Validation, and Troubleshooting | **11%** | Evaluations, RAG/agent evals, failure diagnosis |
 
-Study checklist: **[PUNCH-LIST.md](./PUNCH-LIST.md)** → deep notes under [`topics/`](./topics/).
+Study checklist: **[PUNCH-LIST.md](./PUNCH-LIST.md)** → deep notes under [`topics/`](./topics/) → active practice in [`workbooks/`](./workbooks/).
+
+## Workbooks
+
+Structured 8–10 week practice: retrieval, architecture defense, and production-shaped labs (Bedrock KB/RAG, agents/AgentCore/Strands, Guardrails, evals). Start at **[workbooks/README.md](./workbooks/README.md)** · path home: [`../../index.md`](../../index.md).
+
+| Workbook | Focus | Topics |
+| --- | --- | --- |
+| [01 — FM integration, data, and RAG](./workbooks/01-fm-integration-data-and-rag.md) | Domain 1 (31%) | 01–06 |
+| [02 — Agents and enterprise integration](./workbooks/02-agents-and-enterprise-integration.md) | Domain 2 (26%) | 07–11 |
+| [03 — Safety, security, and governance](./workbooks/03-safety-security-governance.md) | Domain 3 (20%) | 12–15 |
+| [04 — Optimize, monitor, evaluate, troubleshoot](./workbooks/04-optimize-monitor-evaluate-troubleshoot.md) | Domains 4–5 (23%) | 16–20 |
+| [05 — Capstone: production GenAI system](./workbooks/05-capstone-production-genai-system.md) | Ship vertical slice; practice ≥80% | All |
+
+Each workbook includes learning objectives, prerequisites/time, prior-knowledge activation, topic refresh links, closed-book retrieval, worked→guided→independent practice, security/cost/reliability defense scenarios, hands-on labs, traps, reflection, mastery checklist, and an answer key at the end.
 
 ## Production-project study approach
 
@@ -63,8 +77,9 @@ Defend: isolate sessions, least-privilege tool IAM, timeouts/circuit breakers, h
 
 1. Walk [PUNCH-LIST.md](./PUNCH-LIST.md) domain by domain (Domain 1 first—highest weight).
 2. For each item, read `topics/*.md`, click **Research links**, then implement the hands-on project idea.
-3. After each domain, write a one-page architecture decision record (ADR): constraints → options → choice → failure modes → cost envelope.
-4. Close with Domain 5: wire evaluations and troubleshooting playbooks into the same project.
+3. Work the matching [workbook](./workbooks/) (closed-book retrieval → labs → mastery checklist); answer keys stay at the end of each file.
+4. After each domain, write a one-page architecture decision record (ADR): constraints → options → choice → failure modes → cost envelope.
+5. Close with [capstone workbook 05](./workbooks/05-capstone-production-genai-system.md): ship the vertical slice, then practice exams until ≥80%.
 
 ## Official links (bookmark)
 

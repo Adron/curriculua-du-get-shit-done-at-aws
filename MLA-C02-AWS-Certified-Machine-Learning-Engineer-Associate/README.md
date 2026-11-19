@@ -84,5 +84,21 @@ Suggested duration from curriculum path: **6–8 weeks** at ~5–8 hrs/week if y
 |---|---|
 | [PUNCH-LIST.md](./PUNCH-LIST.md) | Checklist of every key topic with links into `topics/` |
 | [`topics/*.md`](./topics/) | Dense research notes: skills map, services, practice, traps, research links |
+| [`workbooks/`](./workbooks/) | Active learning: retrieval, scenarios, labs, capstone → practice exam ≥80% |
 
 Work Domain 1 first (heaviest), then alternate Domain 2 training topics with Domain 3/4 deploy-ops so GenAI/RAG sticks with operational patterns.
+
+## Workbooks
+
+Hands-on study path (pipelines, IaC mindset, ops tradeoffs, plus MLA-C02 GenAI: Bedrock, RAG, agents, LLMOps):
+
+| Workbook | Covers |
+|---|---|
+| [workbooks/README.md](./workbooks/README.md) | How to use + **6–8 week** schedule |
+| [01 — Data preparation](./workbooks/01-data-preparation-for-ml-and-ai.md) | Topics 01–03 · Domain 1 (28%) |
+| [02 — Model and FM development](./workbooks/02-model-and-fm-development.md) | Topics 04–06 · Domain 2 |
+| [03 — Deployment and orchestration](./workbooks/03-deployment-and-orchestration.md) | Topics 07–09 · Domain 3 |
+| [04 — Operate, monitor, secure](./workbooks/04-operate-monitor-secure.md) | Topics 10–12 · Domain 4 |
+| [05 — Capstone E2E pipeline](./workbooks/05-capstone-end-to-end-pipeline.md) | Full data → train/FM → deploy → monitor → secure |
+
+Curriculum overview: [../../index.md](../../index.md).

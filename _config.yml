@@ -1,0 +1,33 @@
+title: AWS AI Certification Curriculum 2027
+description: Study path for preparing and taking AIF-C01, MLA-C02, and AIP-C01 — punch lists, topic notes, and workbooks.
+url: "https://adron.github.io"
+baseurl: "/curriculum-2027"
+
+remote_theme: pages-themes/cayman@v0.2.0
+plugins:
+  - jekyll-remote-theme
+  - jekyll-relative-links
+  - jekyll-seo-tag
+
+relative_links:
+  enabled: true
+  collections: true
+
+markdown: kramdown
+kramdown:
+  input: GFM
+  hard_wrap: false
+
+exclude:
+  - "*.zip"
+  - ".curriculum-2027-work"
+  - "vendor"
+  - "node_modules"
+  - "Gemfile"
+  - "Gemfile.lock"
+
+defaults:
+  - scope:
+      path: ""
+    values:
+      layout: default
