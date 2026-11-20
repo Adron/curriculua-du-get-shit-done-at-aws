@@ -1,0 +1,6 @@
+---
+layout: null
+permalink: /decks/mla-c02.csv
+---
+{% for c in site.data.cards.mla %}"{{ c.q | replace: '"', '""' }}","{{ c.a | replace: '"', '""' }}","mla-c02 {{ c.topic | slice: 0, 2 | prepend: 'topic-' }}"
+{% endfor %}
