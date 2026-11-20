@@ -184,3 +184,12 @@ code, pre { font-family: var(--mono); font-size: .92em; }
   body { background: #fff; color: #000; }
   .doc h1, .doc h2, .doc h3 { color: #000; text-shadow: none; }
 }
+
+/* ---------- buttons (progress tools) ---------- */
+.doc button, .doc .btn {
+  font: inherit; font-size: .85em; color: var(--green); background: transparent;
+  border: 1px solid var(--green-2); padding: .3em .8em; margin: 0 .4em .5em 0; cursor: pointer; display: inline-block;
+}
+.doc button:hover, .doc .btn:hover, .doc button:focus-visible { color: #000; background: var(--green); outline: none; }
+.doc button[data-reset] { color: var(--red); border-color: var(--red); }
+.doc button[data-reset]:hover { background: var(--red); color: #000; }

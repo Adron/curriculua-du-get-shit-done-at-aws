@@ -92,10 +92,10 @@
 
 <footer class="foot wrap">
   <p><span class="dim">[ EOF ]</span> &middot; built by <a href="https://compositecode.blog">Adron Hall</a> &middot; <a href="https://github.com/{{ site.repository }}">{{ site.repository }}</a>{% if page.path %} &middot; <a href="https://github.com/{{ site.repository }}/edit/main/{{ page.path }}">edit this page</a>{% endif %}</p>
-  <p class="dim small">progress checkboxes live in this browser's localStorage. nothing leaves your machine.</p>
+  <p class="dim small">progress lives in this browser, on top of what's committed to the repo. <a href="{{ '/progress.html' | relative_url }}">sync it</a>.</p>
 </footer>
 
-<script>window.C27 = { base: "{{ site.baseurl }}" };</script>
+<script>window.C27 = { base: "{{ site.baseurl }}", repo: {{ site.data.progress | default: "" | jsonify }} };</script>
 <script src="{{ '/assets/js/term.js' | relative_url }}" defer></script>
 </body>
 </html>
